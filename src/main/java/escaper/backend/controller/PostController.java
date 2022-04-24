@@ -7,6 +7,7 @@ import escaper.backend.entity.PostResponseDto;
 import escaper.backend.service.PostService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class PostController {
@@ -26,8 +28,9 @@ public class PostController {
     @GetMapping("/")
     private List<PostResponseDto> getPosts() {
         List<Post> allPosts = postService.getAllPosts();
+        log.info("get Posts {} ", allPosts);
         return allPosts.stream()
-                .map(post -> new PostResponseDto(post))
+                .map(PostResponseDto::new)
                 .collect(Collectors.toList());
     }
 

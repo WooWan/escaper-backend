@@ -13,6 +13,8 @@ public class PostResponseDto {
     private String content;
 
     public PostResponseDto(Post post) {
-
+        this.title = post.getTitle();
+        this.content = post.getContent();
     }
+
 }

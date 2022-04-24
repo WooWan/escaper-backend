@@ -21,8 +21,18 @@ public class Post {
     private String title;
     private String content;
 
-    public void createPost(String title, String content) {
+    public static Post createPost(String title, String content) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContent(content);
+        return post;
+    }
+
+    private void setTitle(String title) {
         this.title = title;
+    }
+
+    private void setContent(String content) {
         this.content = content;
     }
 }
