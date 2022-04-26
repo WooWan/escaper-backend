@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
-import static escaper.backend.entity.Post.createPost;
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -41,6 +39,10 @@ public class DbInit {
 
             Post post3 = createPost("dbinit3", "test3");
             postRepository.save(post3);
+        }
+
+        private Post createPost(String title, String content) {
+            return new Post(title, content);
         }
     }
 }
