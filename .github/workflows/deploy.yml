@@ -1,28 +1,28 @@
 
 name: Java CI with Gradle
-
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-permissions:
-  contents: read
+    branches:
+      - main # (1) 실습하시는분들은 master로 하시면 됩니다. (저는 별도 브랜치로 지정)
+  workflow_dispatch: # (2) 수동 실행
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # (3)
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
+      - name: Checkout
+        uses: actions/checkout@v2 # (4)
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1 # (5)
         with:
-          java-version: '17.0.1'
-          distribution: 'temurin'
+          java-version: 17.0.1
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew # (6)
+        shell: bash
+
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-        with:
-          arguments: build
+        run: ./gradlew clean build # (7)
+        shell: bash
