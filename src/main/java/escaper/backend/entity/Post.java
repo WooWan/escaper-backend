@@ -6,31 +6,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Post {
+public class Post extends BaseTimeEntity {
 
-    @GeneratedValue @Id
+    @Id
+    @GeneratedValue
     @Column(name = "post_id")
     private Long id;
 
     private String title;
     private String content;
 
+    private String imageURL;
+    private int views;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post")
-    private List<Theme> themeList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theme")
+    private Theme theme;
 
-    public Post(String title, String content) {
+    public Post(String title, String content, User user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
     public void updatePost(UpdatePostRequestDto request) {
