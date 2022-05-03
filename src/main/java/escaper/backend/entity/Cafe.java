@@ -12,6 +12,7 @@ public class Cafe {
 
     @Id
     @GeneratedValue
+    @Column(name = "cafe_id")
     private Long id;
 
     @OneToMany(mappedBy = "cafe")
