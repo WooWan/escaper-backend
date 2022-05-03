@@ -1,6 +1,7 @@
 package escaper.backend;
 
 import escaper.backend.entity.Post;
+import escaper.backend.entity.User;
 import escaper.backend.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,18 +32,23 @@ public class DbInit {
         private final PostRepository postRepository;
 
         public void dbInit() {
-            Post post1 = createPost("dbinit", "test");
+            User user1 = new User("user1");
+            User user2 = new User("user2");
+            em.persist(user1);
+            em.persist(user2);
+            Post post1 = createPost("dbinit", "test", user1);
             postRepository.save(post1);
 
-            Post post2 = createPost("dbinit2", "test2");
+            Post post2 = createPost("dbinit2", "test2", user1);
             postRepository.save(post2);
 
-            Post post3 = createPost("dbinit3", "test3");
+
+            Post post3 = createPost("dbinit3", "test3", user2);
             postRepository.save(post3);
         }
 
-        private Post createPost(String title, String content) {
-            return new Post(title, content);
+        private Post createPost(String title, String content, User user) {
+            return new Post(title, content, user);
         }
     }
 }
