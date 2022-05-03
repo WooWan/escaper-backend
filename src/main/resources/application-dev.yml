@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://awseb-e-uek7p2pikv-stack-awsebrdsdatabase-egkdu1avzq2m.c6o2gsiizooq.eu-central-1.rds.amazonaws.com:5432/woohobi
+    username: woohobi
+    password: password
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            BasicBinder: trace
