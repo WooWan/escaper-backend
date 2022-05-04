@@ -17,8 +17,7 @@ public class Theme {
     @JoinColumn(name = "cafe")
     private Cafe cafe;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "theme")
     private Post post;
 
     @OneToOne(fetch = FetchType.LAZY)
