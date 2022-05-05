@@ -1,10 +1,12 @@
 package escaper.backend.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 @Getter
 public class Theme {
 
@@ -26,4 +28,7 @@ public class Theme {
 
     private String name;
 
+    public Theme(String name) {
+        this.name = name;
+    }
 }

@@ -30,13 +30,14 @@ public class Post extends BaseTimeEntity {
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme")
+    @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    public Post(String title, String content, User user) {
+    public Post(String title, String content, User user, Theme theme) {
         this.title = title;
         this.content = content;
         this.user = user;
+        this.theme = theme;
     }
 
     public void updatePost(UpdatePostRequestDto request) {
