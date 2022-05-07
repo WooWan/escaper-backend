@@ -1,13 +1,15 @@
 package escaper.backend.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
+@NoArgsConstructor
+@Entity
 public class Cafe {
 
     @Id
@@ -23,4 +25,8 @@ public class Cafe {
     @Embedded
     private Address address;
 
+    public Cafe(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 }

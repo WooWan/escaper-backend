@@ -1,11 +1,17 @@
 package escaper.backend.entity;
 
-import javax.persistence.Embeddable;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
+@NoArgsConstructor
 @Embeddable
 public class Address {
 
     private String city;
-    private String street;
-    private String zipcode;
+    private String area;
+
+    public Address(String city, String area) {
+        this.city = city;
+        this.area = area;
+    }
 }

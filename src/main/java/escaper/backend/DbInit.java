@@ -1,8 +1,6 @@
 package escaper.backend;
 
-import escaper.backend.entity.Post;
-import escaper.backend.entity.Theme;
-import escaper.backend.entity.User;
+import escaper.backend.entity.*;
 import escaper.backend.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +20,7 @@ public class DbInit {
     @PostConstruct
     private void init() {
         initService.dbInit();
+        initService.dbInit2();
     }
 
     @RequiredArgsConstructor
@@ -58,6 +57,27 @@ public class DbInit {
 
         private Post createPost(String title, String content, User user, Theme theme) {
             return new Post(title, content, user, theme);
+        }
+
+        public void dbInit2() {
+            Address address = new Address("서울", "홍대");
+            Address address2 = new Address("경기도", "수원");
+            Cafe cafe = new Cafe("키이스케이프", address);
+            Cafe cafe2 = new Cafe("소우주", address2);
+
+            em.persist(cafe);
+            em.persist(cafe2);
+            Theme theme = new Theme("삐릿-뽀", cafe);
+            Theme theme2 = new Theme("홀리데이", cafe);
+            Theme theme3 = new Theme("고백", cafe);
+
+            Theme theme4 = new Theme("풀문", cafe2);
+            Theme theme5 = new Theme("도고", cafe2);
+            em.persist(theme);
+            em.persist(theme2);
+            em.persist(theme3);
+            em.persist(theme4);
+            em.persist(theme5);
         }
     }
 }

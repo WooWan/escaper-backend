@@ -31,4 +31,9 @@ public class Theme {
     public Theme(String name) {
         this.name = name;
     }
+
+    public Theme(String name, Cafe cafe) {
+        this.name = name;
+        this.cafe = cafe;
+    }
 }
