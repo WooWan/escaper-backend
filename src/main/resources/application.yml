@@ -3,7 +3,7 @@ spring:
     url: jdbc:h2:tcp://localhost/~/escaper
     username: sa
     password:
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -19,4 +19,5 @@ logging:
         SQL: DEBUG
         type:
           descriptor:
+            sql: trace
             BasicBinder: trace
