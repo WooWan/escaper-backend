@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface CafeRepositoryCustom {
 
-    List<String> getAddress();
+    List<String> getCity();
+    List<String> getAreaByCity(String city);
 }
