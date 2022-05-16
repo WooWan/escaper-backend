@@ -34,7 +34,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom{
     }
 
     private Predicate cityEq(String city) {
-        return hasText(city) ? null : cafe.address.city.eq(city);
+        return hasText(city) ? cafe.address.city.eq(city) : null;
     }
 
 
