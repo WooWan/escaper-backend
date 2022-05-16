@@ -39,7 +39,6 @@ public class PostController {
 
     @PostMapping("/api/post")
     private CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request) {
-        log.info("post is hitted");
         Post newPost = request.toEntity();
         Long id = postService.savePost(newPost);
         return new CreatePostResponse(id);
