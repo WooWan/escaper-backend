@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -23,6 +24,7 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     private String imageURL;
+    private LocalDate appointmentDate;
     private int views;
 
     @ManyToOne
