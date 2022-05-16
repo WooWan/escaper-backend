@@ -22,10 +22,10 @@ class CafeControllerTest {
     @DisplayName("모든 카페 이름을 리턴한다")
     public void getCafeName() {
         //given
-        cafeController.getAddress();
+        cafeController.getCity();
         //when
         //then
-        verify(cafeRepository).getAddress();
+        verify(cafeRepository).getCity();
     }
 
 }
