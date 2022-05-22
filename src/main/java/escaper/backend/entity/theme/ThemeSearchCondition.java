@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ThemeSearchCondition {
 
-    private String cityName;
-    private String areaName;
+    private String city;
+    private String area;
     private String cafeName;
 }
