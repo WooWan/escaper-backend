@@ -1,18 +1,16 @@
-package escaper.backend.entity.theme;
+package escaper.backend.entity.cafe;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class ThemeSearchDto {
+public class CafeSearchDto {
 
     private Long id;
     private String name;
 
     @QueryProjection
-    public ThemeSearchDto(Long id, String name) {
+    public CafeSearchDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }
