@@ -1,4 +1,4 @@
-package escaper.backend.entity;
+package escaper.backend.entity.cafe;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
