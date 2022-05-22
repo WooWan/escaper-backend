@@ -1,5 +1,8 @@
-package escaper.backend.entity;
+package escaper.backend.entity.theme;
 
+import escaper.backend.entity.cafe.Cafe;
+import escaper.backend.entity.Image;
+import escaper.backend.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +18,7 @@ public class Theme {
     @Column(name = "theme_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe")
     private Cafe cafe;
 

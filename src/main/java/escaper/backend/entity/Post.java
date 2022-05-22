@@ -1,5 +1,6 @@
 package escaper.backend.entity;
 
+import escaper.backend.entity.theme.Theme;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,12 +27,13 @@ public class Post extends BaseTimeEntity {
     private String imageURL;
     private LocalDate appointmentDate;
     private int views;
+    private int participation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
