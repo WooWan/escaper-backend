@@ -21,12 +21,12 @@ public class CafeController {
     private final CafeRepository cafeRepository;
 
     @GetMapping("/api/cities")
-    public List<CitySearchDto> getCity() {
-        return cafeRepository.searchCity();
+    public List<String> getCity() {
+        return cafeRepository.searchCities();
     }
 
     @GetMapping("/api/areas")
-    public List<AreaSearchDto> searchArea(@RequestParam(required = false) String city) {
+    public List<String> searchArea(@RequestParam(required = false) String city) {
         return cafeRepository.searchArea(city);
     }
 
