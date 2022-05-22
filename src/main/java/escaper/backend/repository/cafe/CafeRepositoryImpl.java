@@ -2,35 +2,40 @@ package escaper.backend.repository.cafe;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import escaper.backend.entity.cafe.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import javax.persistence.EntityManager;
 import java.util.List;
-import static escaper.backend.entity.QCafe.cafe;
+
+
+import static escaper.backend.entity.cafe.QCafe.cafe;
 import static org.springframework.util.StringUtils.hasText;
 
 @Slf4j
+@RequiredArgsConstructor
 public class CafeRepositoryImpl implements CafeRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
-    public CafeRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
-    }
-
     @Override
-    public List<String> getCity() {
-        return queryFactory.select(cafe.address.city).distinct()
+    public List<String> searchArea(String condition) {
+        return queryFactory.select(cafe.address.area)
+                .distinct()
                 .from(cafe)
+                .where(cityEq(condition))
                 .fetch();
     }
 
     @Override
-    public List<String> getAreaByCity(String cityCond) {
-        log.info("city condition : {}", cityCond);
-        return queryFactory.select(cafe.address.area).distinct()
+    public List<CafeSearchDto> searchCafe(String condition) {
+        return queryFactory.select(new QCafeSearchDto(cafe.id, cafe.name))
                 .from(cafe)
-                .where(cityEq(cityCond))
+                .where(areaEq(condition))
                 .fetch();
+    }
+
+    private Predicate areaEq(String area) {
+        return hasText(area) ? cafe.address.area.eq(area) : null;
     }
 
     private Predicate cityEq(String city) {
