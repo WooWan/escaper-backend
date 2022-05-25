@@ -38,27 +38,8 @@ class ThemeRepositoryTest {
         entityManager.persist(theme);
         //when
         String condition = "cafeA";
-        //then
         List<ThemeSearchDto> results = themeRepository.searchTheme(condition);
+        //then
         assertThat(results).extracting("themeName").contains("theme1");
     }
-
-//    @Test
-//    @DisplayName("조건이 안주어졌을때는 모두 서치되어야 한다")
-//    public void 테마서치_테스트() {
-//        //given
-//        Cafe cafe = new Cafe("cafeA");
-//        entityManager.persist(cafe);
-//
-//        Theme theme1 = new Theme("theme1", cafe);
-//        Theme theme2 = new Theme("theme2", cafe);
-//        entityManager.persist(theme1);
-//        entityManager.persist(theme2);
-//        //when
-//        //then
-//        List<ThemeSearchDto> results = themeRepository.searchTheme();
-//        assertThat(results)
-//                .extracting("themeName")
-//                .contains("theme1", "theme2");
-//    }
 }
