@@ -1,8 +1,8 @@
 package escaper.backend.service;
 
-import escaper.backend.entity.Post;
+import escaper.backend.entity.post.Post;
 import escaper.backend.entity.UpdatePostRequestDto;
-import escaper.backend.repository.PostRepository;
+import escaper.backend.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

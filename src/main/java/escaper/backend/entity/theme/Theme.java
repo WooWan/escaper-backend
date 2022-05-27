@@ -1,6 +1,6 @@
 package escaper.backend.entity.theme;
 
-import escaper.backend.entity.Post;
+import escaper.backend.entity.post.Post;
 import escaper.backend.entity.cafe.Cafe;
 import escaper.backend.entity.Image;
 import lombok.Getter;
@@ -33,10 +33,6 @@ public class Theme {
 
     private String name;
 
-    public void addPost(Post post) {
-        postList.add(post);
-        post.getThemeList().add(this);
-    }
 
     public void setName(String name) {
         this.name = name;
