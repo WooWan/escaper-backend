@@ -31,8 +31,11 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post")
-    private List<ThemePost> themeList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "POST_THEME",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "theme_id"))
+    private List<Theme> themeList = new ArrayList<>();
 
     private String title;
     private String content;
@@ -41,14 +44,6 @@ public class Post extends BaseTimeEntity {
     private LocalDate appointmentDate;
     private int views;
     private int participation;
-
-    public Post(String title, ThemePost... themePosts) {
-        this.title = title;
-        for (ThemePost themePost : themePosts) {
-            themePost.setPost(this);
-        }
-        this.themeList = Stream.of(themePosts).collect(Collectors.toList());
-    }
 
 
     public void changeTitle(String title) {
@@ -75,7 +70,7 @@ public class Post extends BaseTimeEntity {
         post.changeTitle(title);
         post.changeContent(content);
         post.setUser(user);
-        ThemePost themePost1 = new ThemePost();
+
         for (Theme theme : themeList) {
             post.addTheme(theme);
         }

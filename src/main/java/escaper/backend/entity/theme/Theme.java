@@ -1,6 +1,6 @@
 package escaper.backend.entity.theme;
 
-import escaper.backend.entity.ThemePost;
+import escaper.backend.entity.Post;
 import escaper.backend.entity.cafe.Cafe;
 import escaper.backend.entity.Image;
 import lombok.Getter;
@@ -24,14 +24,19 @@ public class Theme {
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
 
-    @OneToMany(mappedBy = "theme")
-    private List<ThemePost> postList = new ArrayList<>();
+    @ManyToMany(mappedBy = "themeList")
+    private List<Post> postList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
 
     private String name;
+
+    public void addPost(Post post) {
+        postList.add(post);
+        post.getThemeList().add(this);
+    }
 
     public void setName(String name) {
         this.name = name;
