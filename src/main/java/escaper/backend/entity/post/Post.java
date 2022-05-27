@@ -1,5 +1,8 @@
-package escaper.backend.entity;
+package escaper.backend.entity.post;
 
+import escaper.backend.entity.BaseTimeEntity;
+import escaper.backend.entity.UpdatePostRequestDto;
+import escaper.backend.entity.User;
 import escaper.backend.entity.theme.Theme;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +14,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Getter
@@ -50,13 +51,7 @@ public class Post extends BaseTimeEntity {
         this.title = title;
     }
 
-    public void addTheme(Theme theme) {
-//        ThemePost themePost = new ThemePost(theme, this);
-//        themeList.add(themePost);
-//        theme.getPostList().add(themePost);
-//        themePostList.add(theme);
-//        theme.setPost(this);
-    }
+
     public void changeContent(String content) {
         this.content = content;
     }
@@ -75,7 +70,11 @@ public class Post extends BaseTimeEntity {
             post.addTheme(theme);
         }
         return post;
+    }
 
+    public void addTheme(Theme theme) {
+        themeList.add(theme);
+        theme.getPostList().add(this);
     }
 
 //    public Post(String title, String content, User user, Theme theme) {
