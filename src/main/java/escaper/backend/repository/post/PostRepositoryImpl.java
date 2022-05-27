@@ -1,16 +1,17 @@
 package escaper.backend.repository.post;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import escaper.backend.entity.Post;
-import escaper.backend.entity.PostResponseDto;
-import escaper.backend.entity.QPostResponseDto;
+import escaper.backend.entity.post.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-import static escaper.backend.entity.QPost.post;
-import static escaper.backend.entity.theme.QTheme.theme;
+import static escaper.backend.entity.post.QPost.post;
+
 
 @RequiredArgsConstructor
 @Slf4j
@@ -19,18 +20,24 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<PostResponseDto> findPagePost() {
-        List<PostResponseDto> results = queryFactory
-                .select(new QPostResponseDto(
-                        post.id,
-                        post.title,
-                        post.content,
-                        theme.name
-                ))
-                .from(post)
-                .leftJoin(post.theme, theme)
+    public Page<Post> findPagePost(Pageable pageable) {
+        List<Post> results = queryFactory
+                .selectFrom(post)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
         long total = results.size();
-        return results;
+        return new PageImpl<>(results, pageable, total);
+    }
+
+    @Override
+    public Page<Post> findPostWithTheme(Pageable pageable) {
+        List<Post> posts = queryFactory
+                .selectFrom(post)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        return new PageImpl<>(posts, pageable, posts.size());
+
     }
 }

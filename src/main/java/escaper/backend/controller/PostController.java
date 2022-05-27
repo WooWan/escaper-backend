@@ -1,17 +1,20 @@
 package escaper.backend.controller;
 
 import escaper.backend.entity.*;
+import escaper.backend.entity.post.Post;
+import escaper.backend.entity.post.PostDto;
+import escaper.backend.repository.post.PostRepository;
 import escaper.backend.service.PostService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Slf4j
@@ -20,16 +23,15 @@ import java.util.stream.Collectors;
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @GetMapping("/api/posts")
     @ResponseStatus(HttpStatus.OK)
-    private List<PostResponseDto> getPosts() {
-        List<Post> allPosts = postService.getAllPosts();
-        log.info("get Posts {} ", allPosts);
-        return allPosts.stream()
-                .map(PostResponseDto::new)
-                .collect(Collectors.toList());
+    private Page<PostDto> getPosts(Pageable pageable) {
+        Page<Post> posts= postRepository.findPagePost(pageable);
+        return posts.map(PostDto::new);
     }
+
 
 //    @GetMapping("/api/post/{id}")
 //    private PostResponseDto getPost(@PathVariable Long id) {
@@ -39,6 +41,7 @@ public class PostController {
 
     @PostMapping("/api/post")
     private CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request) {
+        log.info("request: {}", request);
         Post newPost = request.toEntity();
         Long id = postService.savePost(newPost);
         return new CreatePostResponse(id);
