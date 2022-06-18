@@ -33,11 +33,11 @@ public class PostController {
     }
 
 
-//    @GetMapping("/api/post/{id}")
-//    private PostResponseDto getPost(@PathVariable Long id) {
-//        Post post = postService.getPost(id).orElseThrow(IllegalArgumentException::new);
-//        return new PostResponseDto(post.getTitle(), post.getContent());
-//    }
+    @GetMapping("/api/post/{id}")
+    private PostResponseDto getPost(@PathVariable Long id) {
+        Post post = postService.getPost(id).orElseThrow(IllegalArgumentException::new);
+        return new PostResponseDto(post.getTitle(), post.getContent());
+    }
 
     @PostMapping("/api/post")
     private CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request) {
