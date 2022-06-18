@@ -46,6 +46,13 @@ public class Post extends BaseTimeEntity {
     private int views;
     private int participation;
 
+    public Post(String title, String content, User user, LocalDate appointmentDate) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.appointmentDate = appointmentDate;
+    }
+
 
     public void changeTitle(String title) {
         this.title = title;
@@ -60,12 +67,8 @@ public class Post extends BaseTimeEntity {
         this.user = user;
     }
 
-    public static Post createPost(String title, String content, User user, Theme... themeList) {
-        Post post = new Post();
-        post.changeTitle(title);
-        post.changeContent(content);
-        post.setUser(user);
-
+    public static Post createPost(String title, String content, User user, LocalDate appointmentDate, Theme... themeList) {
+        Post post = new Post(title, content, user, appointmentDate);
         for (Theme theme : themeList) {
             post.addTheme(theme);
         }
