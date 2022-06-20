@@ -12,15 +12,18 @@ plugins {
 }
 
 jib {
-	container {
-		ports = ["8080"]
-		format = "OCI"
+	from {
+		image = "adoptopenjdk/openjdk16:x86_64-alpine-jdk-16.0.1_9"
+	}
+	to {
+		image = "woohobi/escaper"
+		tags = ["latest"]
 	}
 }
 
 group = 'escaper'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+
 
 configurations {
 	compileOnly {
