@@ -34,9 +34,9 @@ public class PostController {
 
 
     @GetMapping("/api/post/{id}")
-    private PostResponseDto getPost(@PathVariable Long id) {
-        Post post = postService.getPost(id).orElseThrow(IllegalArgumentException::new);
-        return new PostResponseDto(post.getTitle(), post.getContent());
+    private PostResponseDto fetchPost(@PathVariable Long id) {
+        Post findPost = postService.fetchPost(id);
+        return new PostResponseDto(findPost);
     }
 
     @PostMapping("/api/post")
@@ -47,12 +47,12 @@ public class PostController {
         return new CreatePostResponse(id);
     }
 
-    @PutMapping("/api/post/{id}")
-    private UpdatePostResponseDto updatePost(@PathVariable Long id, @RequestBody @Valid UpdatePostRequestDto request) {
-        postService.update(id, request);
-        Post updatedPost = postService.getPost(id).orElseThrow(IllegalAccessError::new);
-        return new UpdatePostResponseDto(updatedPost.getTitle(), updatedPost.getContent());
-    }
+//    @PutMapping("/api/post/{id}")
+//    private UpdatePostResponseDto updatePost(@PathVariable Long id, @RequestBody @Valid UpdatePostRequestDto request) {
+//        postService.update(id, request);
+//        Post updatedPost = postService.fetchPost(id).orElseThrow(IllegalAccessError::new);
+//        return new UpdatePostResponseDto(updatedPost.getTitle(), updatedPost.getContent());
+//    }
 
     @DeleteMapping("/api/post/{id}")
     private ResponseEntity<Long> deletePost(@PathVariable Long id) {

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import static escaper.backend.entity.post.QPost.post;
+import static escaper.backend.entity.theme.QTheme.theme;
 
 
 @RequiredArgsConstructor
@@ -39,5 +40,13 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                 .fetch();
         return new PageImpl<>(posts, pageable, posts.size());
 
+    }
+
+    @Override
+    public Post fetchPostById(Long id) {
+        return queryFactory.selectFrom(post)
+                .join(post.themeList, theme).fetchJoin()
+                .where(post.id.eq(id))
+                .fetchOne();
     }
 }
