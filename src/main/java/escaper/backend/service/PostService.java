@@ -21,8 +21,8 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Optional<Post> getPost(Long id) {
-        return postRepository.findById(id);
+    public Post fetchPost(Long id) {
+        return postRepository.fetchPostById(id);
     }
 
     @Transactional
