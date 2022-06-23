@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://awseb-e-uek7p2pikv-stack-awsebrdsdatabase-egkdu1avzq2m.c6o2gsiizooq.eu-central-1.rds.amazonaws.com:5432/woohobi
+    url: jdbc:postgresql://aa1792npmhnejem.c6o2gsiizooq.eu-central-1.rds.amazonaws.com:5432/woohobi
     username: woohobi
     password: password
     driverClassName: org.postgresql.Driver
@@ -9,6 +9,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
 
