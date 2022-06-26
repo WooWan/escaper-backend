@@ -1,5 +1,6 @@
-package escaper.backend.entity;
+package escaper.backend.entity.cafe;
 
+import escaper.backend.entity.theme.Theme;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,5 +29,9 @@ public class Cafe {
     public Cafe(String name, Address address) {
         this.name = name;
         this.address = address;
+    }
+
+    public Cafe(String name) {
+        this.name = name;
     }
 }
