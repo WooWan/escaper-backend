@@ -1,8 +1,8 @@
 package escaper.backend.entity.post;
 
 import escaper.backend.entity.BaseTimeEntity;
+import escaper.backend.entity.Member;
 import escaper.backend.entity.UpdatePostRequestDto;
-import escaper.backend.entity.User;
 import escaper.backend.entity.theme.Theme;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +30,7 @@ public class Post extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @ManyToMany
     @JoinTable(name = "POST_THEME",
@@ -46,10 +46,10 @@ public class Post extends BaseTimeEntity {
     private int views;
     private int participation;
 
-    public Post(String title, String content, User user, LocalDate appointmentDate) {
+    public Post(String title, String content, Member user, LocalDate appointmentDate) {
         this.title = title;
         this.content = content;
-        this.user = user;
+//        this.user = user;
         this.appointmentDate = appointmentDate;
     }
 
@@ -63,12 +63,12 @@ public class Post extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
-    public static Post createPost(String title, String content, User user, LocalDate appointmentDate, Theme... themeList) {
-        Post post = new Post(title, content, user, appointmentDate);
+    public static Post createPost(String title, String content, Member member, LocalDate appointmentDate, Theme... themeList) {
+        Post post = new Post(title, content, member, appointmentDate);
         for (Theme theme : themeList) {
             post.addTheme(theme);
         }
