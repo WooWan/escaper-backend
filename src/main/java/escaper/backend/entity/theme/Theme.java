@@ -2,11 +2,11 @@ package escaper.backend.entity.theme;
 
 import escaper.backend.entity.post.Post;
 import escaper.backend.entity.cafe.Cafe;
-import escaper.backend.entity.Image;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +27,12 @@ public class Theme {
     @ManyToMany(mappedBy = "themeList")
     private List<Post> postList = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
-
     private String name;
-
+    private String genre;
+    private Integer rate;
+    private Integer totalTime;
+    private Integer cost;
+    private String imageURL;
 
     public void setName(String name) {
         this.name = name;
