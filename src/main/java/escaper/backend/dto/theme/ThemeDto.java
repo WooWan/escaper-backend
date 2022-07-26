@@ -1,5 +1,6 @@
-package escaper.backend.entity.theme;
+package escaper.backend.dto.theme;
 
+import escaper.backend.entity.theme.Theme;
 import lombok.Data;
 
 @Data
@@ -8,7 +9,7 @@ public class ThemeDto {
     private Long id;
     private String name;
     private String genre;
-    private Integer rate;
+    private Double rate;
     private String imageURL;
 
     public ThemeDto(Theme theme) {
