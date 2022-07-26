@@ -1,13 +1,16 @@
 package escaper.backend.controller;
 
+import escaper.backend.dto.theme.ThemeDetailDto;
 import escaper.backend.entity.theme.Theme;
-import escaper.backend.entity.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeDto;
 import escaper.backend.entity.theme.ThemeSearchDto;
+import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.repository.theme.ThemeRepository;
 import escaper.backend.service.ThemeService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +26,17 @@ public class ThemeController {
     private final ThemeService themeService;
     private final ThemeRepository themeRepository;
 
-    @GetMapping("api/themes")
+    @GetMapping("/api/themes")
     public List<ThemeSearchDto> searchTheme(@RequestParam(required = false) String cafe) {
         return themeRepository.searchTheme(cafe);
+    }
+
+    @GetMapping("/api/theme/{id}")
+    public List<ThemeDetailDto> fetchThemeById(@PathVariable Long id) {
+        List<Theme> results = themeRepository.findThemeById(id);
+        return results.stream()
+                .map(ThemeDetailDto::new)
+                .collect(toList());
     }
 
     @GetMapping("/api/themes/popular")
@@ -36,11 +47,16 @@ public class ThemeController {
                 .collect(toList());
     }
 
-    @GetMapping("/api/themes/genre")
-    public List<ThemeDto> findThemeByGenre(String genre) {
+    @GetMapping("/api/themes/{genre}")
+    public List<ThemeDto> findThemeByGenre(@PathVariable String genre) {
         List<Theme> results = themeRepository.findThemeByGenre(genre);
         return results.stream()
                 .map(ThemeDto::new)
                 .collect(toList());
+    }
+
+    @GetMapping("/api/themes/type")
+    public List<ThemeTypes> themeTypes() {
+        return themeService.getThemeTypes();
     }
 }
