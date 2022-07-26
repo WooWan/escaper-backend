@@ -1,6 +1,6 @@
 package escaper.backend.service;
 
-import escaper.backend.entity.theme.ThemeTypes;
+import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

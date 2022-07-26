@@ -1,8 +1,7 @@
 package escaper.backend.entity;
 
-import com.querydsl.core.annotations.QueryProjection;
 import escaper.backend.entity.post.Post;
-import escaper.backend.entity.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeDto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
