@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,10 +18,6 @@ public class PostService {
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
-    }
-
-    public Post fetchPost(Long id) {
-        return postRepository.fetchPostById(id);
     }
 
     @Transactional
