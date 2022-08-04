@@ -1,5 +1,6 @@
 package escaper.backend.entity;
 
+import escaper.backend.entity.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 @Entity
-public class User {
+public class Member {
 
     @GeneratedValue
     @Id
@@ -20,10 +21,10 @@ public class User {
 
     private String name;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
 
-    public User(String name) {
+    public Member(String name) {
         this.name = name;
     }
 }
