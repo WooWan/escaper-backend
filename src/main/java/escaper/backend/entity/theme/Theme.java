@@ -24,12 +24,16 @@ public class Theme {
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
 
-    @ManyToMany(mappedBy = "themeList")
-    private List<Post> postList = new ArrayList<>();
+    @OneToMany(mappedBy = "theme")
+    private List<Post> posts = new ArrayList<>();
+
 
     private String name;
     private String genre;
-    private Integer rate;
+    private Integer timeLimitation;
+    private Integer appropriatedPeople;
+    private Double limitation;
+    private Double rate;
     private Integer totalTime;
     private Integer cost;
     private String imageURL;
@@ -42,9 +46,10 @@ public class Theme {
         this.name = name;
     }
 
-    public Theme(String name, Cafe cafe) {
+    public Theme(String name, Cafe cafe, String genre) {
         this.name = name;
         this.cafe = cafe;
+        this.genre = genre;
     }
 
     public static Theme createTheme(String name) {
