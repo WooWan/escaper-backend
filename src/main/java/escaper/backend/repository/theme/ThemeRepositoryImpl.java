@@ -2,10 +2,9 @@ package escaper.backend.repository.theme;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import escaper.backend.entity.theme.QThemeSearchDto;
-import escaper.backend.entity.theme.Theme;
-import escaper.backend.entity.theme.ThemeSearchDto;
+import escaper.backend.dto.theme.QThemeTypes;
+import escaper.backend.dto.theme.ThemeTypes;
+import escaper.backend.entity.theme.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -30,6 +29,13 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
     }
 
     @Override
+    public Theme findThemeById(Long id) {
+        return queryFactory.selectFrom(theme)
+                .where(theme.id.eq(id))
+                .fetchOne();
+    }
+
+    @Override
     public List<Theme> findPopularTheme() {
         return queryFactory.selectFrom(theme)
                 .orderBy(theme.rate.desc())
@@ -42,6 +48,13 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
         return queryFactory.selectFrom(theme)
                 .where(genreNameEq(genre))
                 .limit(10)
+                .fetch();
+    }
+
+    @Override
+    public List<ThemeTypes> findThemeTypes() {
+        return queryFactory.select(new QThemeTypes(theme.id, theme.genre))
+                .from(theme)
                 .fetch();
     }
 
