@@ -1,11 +1,9 @@
 package escaper.backend.entity.post;
 
-import escaper.backend.entity.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeDto;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class PostDto {
@@ -16,7 +14,7 @@ public class PostDto {
     private LocalDate appointmentDate;
     private int views;
     private int participation;
-    private List<ThemeDto> themeList;
+    private ThemeDto themeDto;
 
     public PostDto(Post post) {
         this.postId = post.getId();
@@ -25,8 +23,5 @@ public class PostDto {
         this.appointmentDate = post.getAppointmentDate();
         this.views = post.getViews();
         this.participation = post.getParticipation();
-        this.themeList = post.getThemeList().stream()
-                .map(ThemeDto::new)
-                .collect(Collectors.toList());
     }
 }
