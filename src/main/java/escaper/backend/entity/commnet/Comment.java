@@ -20,8 +20,8 @@ public class Comment {
 
     public String content;
 
-    public void saveComment(CreateCommentRequest request) {
-        content = request.getContent();
+    public void saveComment(String comment) {
+        this.content = comment;
     }
 
     public void addPost(Post post) {
