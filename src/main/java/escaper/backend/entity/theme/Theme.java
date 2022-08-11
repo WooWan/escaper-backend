@@ -2,6 +2,7 @@ package escaper.backend.entity.theme;
 
 import escaper.backend.entity.post.Post;
 import escaper.backend.entity.cafe.Cafe;
+import escaper.backend.entity.review.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +28,8 @@ public class Theme {
     @OneToMany(mappedBy = "theme")
     private List<Post> posts = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "theme")
+    public List<Review> reviews = new ArrayList<>();
     private String name;
     private String genre;
     private Integer timeLimitation;
