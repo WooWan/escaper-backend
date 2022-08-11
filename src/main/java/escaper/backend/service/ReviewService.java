@@ -1,6 +1,6 @@
 package escaper.backend.service;
 
-import escaper.backend.entity.review.CreateReviewDto;
+import escaper.backend.entity.review.CreateReview;
 import escaper.backend.entity.review.Review;
 import escaper.backend.repository.review.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public Long savePost(CreateReviewDto reviewDto) {
+    public Long savePost(CreateReview reviewDto) {
         Review review = reviewDto.toEntity();
         Double rate = review.getRate();
         Double reviewUnit = 0.5;

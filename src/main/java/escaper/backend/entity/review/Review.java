@@ -1,10 +1,9 @@
 package escaper.backend.entity.review;
 
+import escaper.backend.entity.theme.Theme;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -17,5 +16,10 @@ public class Review {
     private Long id;
 
     private Double rate;
-    private String comment;
+    private String content;
+    private Integer like;
+
+    @ManyToOne
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 }
