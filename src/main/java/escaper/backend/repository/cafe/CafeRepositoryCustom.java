@@ -10,4 +10,6 @@ public interface CafeRepositoryCustom {
 
     List<CafeSearchDto> searchCafe(String condition);
 
+    Cafe findCafeById(Long id);
+
 }

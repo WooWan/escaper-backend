@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import static escaper.backend.entity.cafe.QCafe.cafe;
+import static escaper.backend.entity.theme.QTheme.theme;
 import static org.springframework.util.StringUtils.hasText;
 
 @Slf4j
@@ -30,6 +31,15 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom{
                 .from(cafe)
                 .where(areaEq(condition))
                 .fetch();
+    }
+
+    @Override
+    public Cafe findCafeById(Long id) {
+        return queryFactory.selectFrom(cafe)
+                .where(cafe.id.eq(id))
+                .join(cafe.themeList, theme)
+                .fetchJoin()
+                .fetchOne();
     }
 
     private Predicate areaEq(String area) {
