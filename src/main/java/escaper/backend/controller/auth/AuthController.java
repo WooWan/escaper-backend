@@ -2,8 +2,8 @@ package escaper.backend.controller.auth;
 
 import escaper.backend.common.ApiResponse;
 import escaper.backend.config.AppProperties;
-import escaper.backend.entity.auth.AuthReqModel;
-import escaper.backend.entity.user.UserRefreshToken;
+import escaper.backend.entity.member.UserRefreshToken;
+import escaper.backend.entity.member.auth.AuthReqModel;
 import escaper.backend.oauth.entity.RoleType;
 import escaper.backend.oauth.entity.UserPrincipal;
 import escaper.backend.oauth.token.AuthToken;

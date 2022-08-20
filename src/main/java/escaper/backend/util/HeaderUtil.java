@@ -9,7 +9,7 @@ public class HeaderUtil {
 
     public static String getAccessToken(HttpServletRequest request) {
         String headerValue = request.getHeader(HEADER_AUTHORIZATION);
-
+        System.out.println(headerValue);
         if (headerValue == null) {
             return null;
         }
@@ -21,4 +21,3 @@ public class HeaderUtil {
         return null;
     }
 }
-

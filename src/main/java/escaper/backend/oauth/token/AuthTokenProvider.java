@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class AuthTokenProvider {
+
     private final Key key;
     private static final String AUTHORITIES_KEY = "role";
 
@@ -55,5 +56,4 @@ public class AuthTokenProvider {
             throw new TokenValidFailedException();
         }
     }
-
 }

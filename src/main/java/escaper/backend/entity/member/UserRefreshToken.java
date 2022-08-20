@@ -1,4 +1,4 @@
-package escaper.backend.entity.user;
+package escaper.backend.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

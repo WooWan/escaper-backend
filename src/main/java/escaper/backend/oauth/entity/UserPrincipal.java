@@ -1,6 +1,6 @@
 package escaper.backend.oauth.entity;
 
-import escaper.backend.entity.user.User;
+import escaper.backend.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,8 @@ import java.util.Map;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
-
     private final String userId;
-    private final String password;
+//    private final String password;
     private final ProviderType providerType;
     private final RoleType roleType;
     private final Collection<GrantedAuthority> authorities;
@@ -38,6 +37,11 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
     }
 
     @Override
@@ -59,6 +63,7 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -83,22 +88,22 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     public OidcIdToken getIdToken() {
         return null;
     }
-    public static UserPrincipal create(User user) {
+
+    public static UserPrincipal create(Member member) {
         return new UserPrincipal(
-                user.getUserId(),
-                user.getPassword(),
-                user.getProviderType(),
+                member.getUserId(),
+//                user.getPassword(),
+                member.getProviderType(),
                 RoleType.USER,
                 Collections.singletonList(new SimpleGrantedAuthority(RoleType.USER.getCode()))
         );
     }
 
-    public static UserPrincipal create(User user, Map<String, Object> attributes) {
-        UserPrincipal userPrincipal = create(user);
+    public static UserPrincipal create(Member member, Map<String, Object> attributes) {
+        UserPrincipal userPrincipal = create(member);
         userPrincipal.setAttributes(attributes);
 
         return userPrincipal;
     }
-
-
 }
+

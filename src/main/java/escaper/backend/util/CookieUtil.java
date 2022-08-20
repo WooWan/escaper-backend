@@ -1,6 +1,5 @@
 package escaper.backend.util;
 
-
 import org.springframework.util.SerializationUtils;
 
 import javax.servlet.http.Cookie;
@@ -32,6 +31,7 @@ public class CookieUtil {
 
         response.addCookie(cookie);
     }
+
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
         Cookie[] cookies = request.getCookies();
 
@@ -61,3 +61,4 @@ public class CookieUtil {
     }
 
 }
+

@@ -1,4 +1,4 @@
-package escaper.backend.entity.auth;
+package escaper.backend.entity.member.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

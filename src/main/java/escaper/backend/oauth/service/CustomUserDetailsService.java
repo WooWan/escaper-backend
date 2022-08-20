@@ -1,8 +1,8 @@
 package escaper.backend.oauth.service;
 
-import escaper.backend.entity.user.User;
+import escaper.backend.entity.member.Member;
 import escaper.backend.oauth.entity.UserPrincipal;
-import escaper.backend.repository.user.UserRepository;
+import escaper.backend.repository.user.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,15 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserId(username);
-        if (user == null) {
+        Member member = memberRepository.findByUserId(username);
+        if (member == null) {
             throw new UsernameNotFoundException("Can not find username.");
         }
-        return UserPrincipal.create(user);
+        return UserPrincipal.create(member);
     }
 }
-

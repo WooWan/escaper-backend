@@ -11,6 +11,7 @@ import java.util.Date;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthToken {
+
     @Getter
     private final String token;
     private final Key key;
@@ -43,6 +44,7 @@ public class AuthToken {
                 .setExpiration(expiry)
                 .compact();
     }
+
     public boolean validate() {
         return this.getTokenClaims() != null;
     }
@@ -67,6 +69,7 @@ public class AuthToken {
         }
         return null;
     }
+
     public Claims getExpiredTokenClaims() {
         try {
             Jwts.parserBuilder()
@@ -80,5 +83,5 @@ public class AuthToken {
         }
         return null;
     }
-
 }
+
