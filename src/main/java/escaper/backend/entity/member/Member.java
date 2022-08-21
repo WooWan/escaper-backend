@@ -1,6 +1,7 @@
 package escaper.backend.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import escaper.backend.entity.review.Review;
 import escaper.backend.oauth.entity.ProviderType;
 import escaper.backend.oauth.entity.RoleType;
 import lombok.*;
@@ -46,6 +47,9 @@ public class Member {
     @NotNull
     private RoleType roleType;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
+    private Review review;
+
 
     public Member(
             @NotNull @Size(max = 64) String userId,
@@ -59,5 +63,9 @@ public class Member {
         this.profileImageUrl = profileImageUrl != null ? profileImageUrl : "";
         this.providerType = providerType;
         this.roleType = roleType;
+    }
+
+    public void addReview(Review review) {
+        this.review = review;
     }
 }
