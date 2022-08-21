@@ -1,5 +1,6 @@
 package escaper.backend.controller;
 
+import escaper.backend.dto.review.CreateRating;
 import escaper.backend.entity.review.CreateReview;
 import escaper.backend.entity.review.Review;
 import escaper.backend.entity.review.ReviewDto;
@@ -20,14 +21,18 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewRepository reviewRepository;
 
-    @PostMapping("/api/review")
-    public Long registerReview(@RequestBody @Valid CreateReview reviewDto) {
-        return reviewService.savePost(reviewDto);
+    @PostMapping("/api/review/{themeId}/member/{memberId}")
+    public Long registerReview(@PathVariable Long themeId, @PathVariable Long memberId, @RequestBody @Valid CreateReview reviewDto) {
+        return reviewService.saveReview(reviewDto, memberId, themeId);
+    }
+    @PostMapping("/api/rate/{themeId}/member/{memberId}")
+    public Long rateTheme(@PathVariable Long themeId, @PathVariable Long memberId, @RequestBody CreateRating rating) {
+        return reviewService.rateTheme(themeId, memberId, rating);
     }
 
     @GetMapping("/api/review/{themeId}")
     public List<ReviewDto> getReviews(@PathVariable Long themeId) {
-        List<Review> result = reviewRepository.findByThemeId(themeId);
+        List<Review> result = reviewRepository.findByThemeWithCon(themeId);
         return result.stream()
                 .map(ReviewDto::new)
                 .collect(toList());
