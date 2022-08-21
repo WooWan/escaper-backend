@@ -1,6 +1,8 @@
 package escaper.backend.dto.theme;
 
+import com.querydsl.core.annotations.QueryProjection;
 import escaper.backend.entity.theme.Theme;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -11,24 +13,23 @@ public class ThemeDetailDto {
     private String genre;
     private Integer timeLimitation;
     private Integer appropriatedPeople;
-    private Double limitation;
     private Double rate;
-    private Integer totalTime;
     private Integer cost;
     private String imageURL;
 
-    public ThemeDetailDto(Theme theme) {
-        id = theme.getId();
-        name = theme.getName();
-        genre = theme.getGenre();
-        timeLimitation = theme.getTimeLimitation();
-        appropriatedPeople = theme.getAppropriatedPeople();
-        limitation = theme.getLimitation();
-        rate = theme.getRate();
-        totalTime = theme.getTotalTime();
-        cost = theme.getCost();
-        imageURL = theme.getImageURL();
+    private String cafeName;
 
+    @QueryProjection
+    public ThemeDetailDto(Long id, String name, String genre, Integer timeLimitation, Integer appropriatedPeople, Double rate, Integer cost, String imageURL, String cafeName) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.timeLimitation = timeLimitation;
+        this.appropriatedPeople = appropriatedPeople;
+        this.rate = rate;
+        this.cost = cost;
+        this.imageURL = imageURL;
+        this.cafeName = cafeName;
     }
 }
 

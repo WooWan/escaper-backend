@@ -2,7 +2,9 @@ package escaper.backend.repository.theme;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import escaper.backend.dto.theme.QThemeDetailDto;
 import escaper.backend.dto.theme.QThemeTypes;
+import escaper.backend.dto.theme.ThemeDetailDto;
 import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.entity.theme.*;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +58,15 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
         return queryFactory.select(new QThemeTypes(theme.id, theme.genre))
                 .from(theme)
                 .fetch();
+    }
+
+    @Override
+    public ThemeDetailDto findThemeCafeById(Long id) {
+        return queryFactory.select(new QThemeDetailDto(theme.id, theme.name, theme.genre, theme.timeLimitation, theme.appropriatedPeople, theme.rate, theme.cost, theme.imageURL, cafe.name))
+                .from(theme)
+                .join(theme.cafe, cafe)
+                .where(theme.id.eq(id))
+                .fetchOne();
     }
 
     private Predicate genreNameEq(String genre) {
