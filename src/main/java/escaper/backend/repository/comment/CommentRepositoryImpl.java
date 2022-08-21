@@ -1,12 +1,12 @@
 package escaper.backend.repository.comment;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import escaper.backend.entity.commnet.Comment;
+import escaper.backend.entity.comment.Comment;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static escaper.backend.entity.commnet.QComment.comment;
+import static escaper.backend.entity.comment.QComment.comment;
 
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepositoryCustom{

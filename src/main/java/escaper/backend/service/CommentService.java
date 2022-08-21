@@ -1,7 +1,6 @@
 package escaper.backend.service;
 
-import escaper.backend.dto.comment.CreateCommentRequest;
-import escaper.backend.entity.commnet.Comment;
+import escaper.backend.entity.comment.Comment;
 import escaper.backend.entity.post.Post;
 import escaper.backend.repository.comment.CommentRepository;
 import escaper.backend.repository.post.PostRepository;
@@ -20,14 +19,15 @@ public class CommentService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Integer saveComment(Long postId, CreateCommentRequest request) {
+    public Long saveComment(Long postId, String request) {
         Optional<Post> result = postRepository.findById(postId);
         Post findPost = result.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
 
         Comment comment = new Comment();
         comment.addPost(findPost);
         comment.saveComment(request);
-        return commentRepository.save(comment)
+        return commentRepository
+                .save(comment)
                 .getId();
     }
 }

@@ -1,6 +1,6 @@
 package escaper.backend.repository.comment;
 
-import escaper.backend.entity.commnet.Comment;
+import escaper.backend.entity.comment.Comment;
 
 import java.util.List;
 
