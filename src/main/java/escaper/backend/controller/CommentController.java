@@ -1,8 +1,7 @@
 package escaper.backend.controller;
 
-import escaper.backend.dto.comment.CreateCommentRequest;
-import escaper.backend.entity.commnet.Comment;
-import escaper.backend.entity.commnet.CommentDto;
+import escaper.backend.entity.comment.Comment;
+import escaper.backend.entity.comment.CommentDto;
 import escaper.backend.repository.comment.CommentRepository;
 import escaper.backend.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class CommentController {
     }
 
     @PostMapping("/api/comment")
-    public Integer saveComment(@RequestParam Long postId, @RequestBody String request) {
+    public Long saveComment(@RequestParam Long postId, @RequestBody String request) {
         return commentService.saveComment(postId, request);
     }
 

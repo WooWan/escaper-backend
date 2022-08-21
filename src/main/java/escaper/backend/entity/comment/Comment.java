@@ -1,6 +1,5 @@
-package escaper.backend.entity.commnet;
+package escaper.backend.entity.comment;
 
-import escaper.backend.dto.comment.CreateCommentRequest;
 import escaper.backend.entity.post.Post;
 import lombok.Getter;
 
@@ -12,7 +11,7 @@ public class Comment {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
