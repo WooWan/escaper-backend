@@ -16,11 +16,12 @@ public class ServiceTestConfig {
     @Autowired
     protected MemberRepository memberRepository;
 
-    protected Member member;
+    protected Member member1;
+    protected Member member2;
 
     @BeforeEach
     void init() {
-        this.member = memberRepository.save(
+        this.member1 = memberRepository.save(
                 Member.builder()
                         .username("username")
                         .profileImageUrl("www.com")
@@ -28,5 +29,12 @@ public class ServiceTestConfig {
                         .roleType(RoleType.USER)
                         .build()
         );
+        this.member1 = memberRepository.save(
+                Member.builder()
+                        .username("username")
+                        .profileImageUrl("www.com")
+                        .providerType(ProviderType.GOOGLE)
+                        .roleType(RoleType.USER)
+                        .build());
     }
 }
