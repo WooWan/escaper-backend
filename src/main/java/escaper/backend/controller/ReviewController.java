@@ -1,11 +1,12 @@
 package escaper.backend.controller;
 
 import escaper.backend.dto.review.CreateRating;
+import escaper.backend.dto.review.RatingResponse;
 import escaper.backend.entity.review.CreateReview;
 import escaper.backend.entity.review.Review;
 import escaper.backend.entity.review.ReviewDto;
 import escaper.backend.repository.review.ReviewRepository;
-import escaper.backend.service.ReviewService;
+import escaper.backend.service.review.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +37,10 @@ public class ReviewController {
         return result.stream()
                 .map(ReviewDto::new)
                 .collect(toList());
+    }
+
+    @GetMapping("/api/theme/{themeId}/member/{memberId}")
+    public RatingResponse fetchThemeRatingOfUser(@PathVariable Long themeId, @PathVariable Long memberId) {
+        return reviewService.fetchThemeRatingOfUser(themeId, memberId);
     }
 }

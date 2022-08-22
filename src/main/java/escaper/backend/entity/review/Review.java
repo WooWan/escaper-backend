@@ -28,6 +28,13 @@ public class Review {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public Review(Double rating, String content) {
+        this.rating = rating;
+        this.content = content;
+        this.likes = 0;
+    }
+
     public void addTheme(Theme theme) {
         this.theme = theme;
         theme.getReviews().add(this);

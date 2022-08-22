@@ -1,6 +1,7 @@
-package escaper.backend.service;
+package escaper.backend.service.review;
 
 import escaper.backend.dto.review.CreateRating;
+import escaper.backend.dto.review.RatingResponse;
 import escaper.backend.entity.cafe.Cafe;
 import escaper.backend.entity.member.Member;
 import escaper.backend.entity.review.CreateReview;
@@ -80,4 +81,14 @@ public class ReviewService {
         review.addMember(member);
     }
 
+    public RatingResponse fetchThemeRatingOfUser(Long themeId, Long memberId) {
+        Optional<Review> result = reviewRepository.findReviewByUser(memberId, themeId);
+        Double userRating;
+        if (result.isEmpty()) {
+            userRating = 0.0;
+        }else{
+            userRating = result.get().getRating();
+        }
+        return ReviewConverter.toRatingResponse(userRating);
+    }
 }
