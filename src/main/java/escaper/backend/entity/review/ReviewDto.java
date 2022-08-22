@@ -14,7 +14,7 @@ public class ReviewDto {
     public ReviewDto(Review review) {
         reviewId = review.getId();
         content = review.getContent();
-        rate = review.getRate();
+        rate = review.getRating();
         likes = review.getLikes();
         themeId = review.getTheme().getId();
     }

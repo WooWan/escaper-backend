@@ -7,7 +7,7 @@ public class MemberConverter {
 
     public static MemberResponse toMemberResponse(Member member) {
         return MemberResponse.builder()
-                .userId(member.getUserId())
+                .id(member.getUserSeq())
                 .username(member.getUsername())
                 .profileImageUrl(member.getProfileImageUrl())
                 .providerType(member.getProviderType())
