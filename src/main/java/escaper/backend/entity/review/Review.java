@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Builder
 public class Review {
@@ -16,7 +16,7 @@ public class Review {
     @Id @GeneratedValue
     private Long id;
 
-    private Double rate;
+    private Double rating;
     private String content;
     private Integer likes;
 
@@ -24,8 +24,8 @@ public class Review {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public void addTheme(Theme theme) {
@@ -35,10 +35,10 @@ public class Review {
 
     public void addMember(Member member) {
         this.member = member;
-        member.addReview(this);
+        member.getReviews().add(this);
     }
 
     public void rateTheme(Double rating) {
-        this.rate = rating;
+        this.rating = rating;
     }
 }

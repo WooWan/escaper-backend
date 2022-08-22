@@ -9,6 +9,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class Member {
 
     @JsonIgnore
     @Id
-    @Column(name = "USER_SEQ")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
 
@@ -47,8 +49,8 @@ public class Member {
     @NotNull
     private RoleType roleType;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
-    private Review review;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Review> reviews = new ArrayList<>();
 
 
     public Member(
@@ -65,7 +67,4 @@ public class Member {
         this.roleType = roleType;
     }
 
-    public void addReview(Review review) {
-        this.review = review;
-    }
 }
