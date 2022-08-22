@@ -22,12 +22,15 @@ public class Cafe {
     private List<Theme> themeList = new ArrayList<>();
 
     private String name;
+    private String phoneNumber;
+    private Double rating;
 
     @Embedded
     private Address address;
 
-    public Cafe(String name, Address address) {
+    public Cafe(String name,String phoneNumber, Address address) {
         this.name = name;
+        this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
