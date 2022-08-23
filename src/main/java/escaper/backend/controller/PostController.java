@@ -1,10 +1,11 @@
 package escaper.backend.controller;
 
+import escaper.backend.dto.post.CreatePostRequest;
 import escaper.backend.entity.*;
 import escaper.backend.entity.post.Post;
 import escaper.backend.entity.post.PostDto;
 import escaper.backend.repository.post.PostRepository;
-import escaper.backend.service.PostService;
+import escaper.backend.service.post.PostService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Getter
 @Slf4j
@@ -29,30 +28,21 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     private Page<PostDto> getPosts(Pageable pageable) {
         Page<Post> posts= postRepository.findPagePost(pageable);
+        log.info("posts {}", posts);
         return posts.map(PostDto::new);
     }
 
-
     @GetMapping("/api/post/{id}")
     private PostResponseDto fetchPost(@PathVariable Long id) {
-        Post findPost = postService.fetchPost(id);
+        Post findPost = postRepository.fetchPost(id);
+        log.info("findpost {} ", findPost);
         return new PostResponseDto(findPost);
     }
 
     @PostMapping("/api/post")
-    private CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request) {
-        log.info("request: {}", request);
-        Post newPost = request.toEntity();
-        Long id = postService.savePost(newPost);
-        return new CreatePostResponse(id);
+    public void savePost(@RequestBody CreatePostRequest postRequest) {
+        postService.savePost(postRequest);
     }
-
-//    @PutMapping("/api/post/{id}")
-//    private UpdatePostResponseDto updatePost(@PathVariable Long id, @RequestBody @Valid UpdatePostRequestDto request) {
-//        postService.update(id, request);
-//        Post updatedPost = postService.fetchPost(id).orElseThrow(IllegalAccessError::new);
-//        return new UpdatePostResponseDto(updatedPost.getTitle(), updatedPost.getContent());
-//    }
 
     @DeleteMapping("/api/post/{id}")
     private ResponseEntity<Long> deletePost(@PathVariable Long id) {

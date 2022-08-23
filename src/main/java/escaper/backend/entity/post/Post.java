@@ -1,14 +1,13 @@
 package escaper.backend.entity.post;
 
 import escaper.backend.entity.BaseTimeEntity;
-import escaper.backend.entity.Member;
+import escaper.backend.entity.member.Member;
 import escaper.backend.entity.UpdatePostRequestDto;
+import escaper.backend.entity.comment.Comment;
 import escaper.backend.entity.theme.Theme;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Slf4j
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,25 +30,27 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    @ManyToMany
-    @JoinTable(name = "POST_THEME",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "theme_id"))
-    private List<Theme> themeList = new ArrayList<>();
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 
     private String title;
     private String content;
 
     private String imageURL;
     private LocalDate appointmentDate;
-    private int views;
-    private int participation;
+    private Integer views;
+    private Integer participation;
 
-    public Post(String title, String content, Member user, LocalDate appointmentDate) {
+    public Post(String title, String content, Member member, LocalDate appointmentDate, Integer views, Integer participation) {
         this.title = title;
         this.content = content;
-//        this.user = user;
         this.appointmentDate = appointmentDate;
+        this.views = views;
+        this.participation = participation;
     }
 
 
@@ -63,32 +63,30 @@ public class Post extends BaseTimeEntity {
         this.content = content;
     }
 
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
-    public static Post createPost(String title, String content, Member member, LocalDate appointmentDate, Theme... themeList) {
-        Post post = new Post(title, content, member, appointmentDate);
-        for (Theme theme : themeList) {
-            post.addTheme(theme);
-        }
-        return post;
+    public static Post createPost(String title, String content, Member member, LocalDate appointmentDate) {
+        return new Post(title, content, member, appointmentDate, 0, 1);
     }
 
     public void addTheme(Theme theme) {
-        themeList.add(theme);
-        theme.getPostList().add(this);
+        this.theme = theme;
+        theme.getPosts().add(this);
     }
-
-//    public Post(String title, String content, User user, Theme theme) {
-//        this.title = title;
-//        this.content = content;
-//        this.user = user;
-//        this.theme = theme;
-//    }
 
     public void updatePost(UpdatePostRequestDto request) {
         this.title = request.getTitle();
         this.content = request.getContent();
+    }
+
+    @Builder
+    public Post(String title, String content,Integer participation, Integer views, LocalDate appointmentDate) {
+        Assert.hasText(title, "title must now be null");
+        Assert.hasText(content, "content must now be null");
+        Assert.notNull(participation, "participation must now be null");
+        Assert.notNull(appointmentDate, "appointmentDate must now be null");
+        this.title = title;
+        this.content = content;
+        this.participation = participation;
+        this.views= views;
+        this.appointmentDate = appointmentDate;
     }
 }
