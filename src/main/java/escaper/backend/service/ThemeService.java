@@ -25,6 +25,4 @@ public class ThemeService {
                 .filter(theme -> nameSet.add(theme.getGenre()))
                 .collect(Collectors.toList());
     }
-
-
 }
