@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static escaper.backend.entity.comment.QComment.comment;
 import static escaper.backend.entity.post.QPost.post;
 import static escaper.backend.entity.theme.QTheme.theme;
 
@@ -19,6 +20,14 @@ import static escaper.backend.entity.theme.QTheme.theme;
 public class PostRepositoryImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
+    public Post fetchPost(Long id) {
+        return queryFactory.selectFrom(post)
+                .where(post.id.eq(id))
+                .leftJoin(post.comments, comment).fetchJoin()
+                .join(post.theme, theme).fetchJoin()
+                .fetchOne();
+    }
 
     @Override
     public Page<Post> findPagePost(Pageable pageable) {
@@ -40,13 +49,5 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                 .fetch();
         return new PageImpl<>(posts, pageable, posts.size());
 
-    }
-
-    @Override
-    public Post fetchPostById(Long id) {
-        return queryFactory.selectFrom(post)
-                .join(post.themeList, theme).fetchJoin()
-                .where(post.id.eq(id))
-                .fetchOne();
     }
 }

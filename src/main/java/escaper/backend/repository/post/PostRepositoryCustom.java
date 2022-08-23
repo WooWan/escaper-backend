@@ -12,4 +12,7 @@ public interface PostRepositoryCustom {
     Page<Post> findPagePost(Pageable pageable);
 
     Page<Post> findPostWithTheme(Pageable pageable);
+
+    Post fetchPost(Long id);
+
 }
