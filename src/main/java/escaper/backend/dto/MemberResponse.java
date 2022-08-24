@@ -8,15 +8,15 @@ import lombok.Data;
 @Data
 public class MemberResponse {
 
-    private String userId;
+    private Long id;
     private String username;
     private String profileImageUrl;
     private ProviderType providerType;
     private RoleType roleType;
 
     @Builder
-    public MemberResponse(String userId, String username, String profileImageUrl, ProviderType providerType, RoleType roleType) {
-        this.userId = userId;
+    public MemberResponse(Long id, String username, String profileImageUrl, ProviderType providerType, RoleType roleType) {
+        this.id = id;
         this.username = username;
         this.profileImageUrl = profileImageUrl;
         this.providerType = providerType;
