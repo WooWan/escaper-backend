@@ -25,7 +25,6 @@ public class Member {
     private Long userSeq;
 
     @Column(name = "USER_ID", length = 64, unique = true)
-    @NotNull
     @Size(max = 64)
     private String userId;
 
@@ -67,4 +66,11 @@ public class Member {
         this.roleType = roleType;
     }
 
+    @Builder
+    public Member(String username, String profileImageUrl, ProviderType providerType, RoleType roleType) {
+        this.username = username;
+        this.profileImageUrl = profileImageUrl;
+        this.providerType = providerType;
+        this.roleType = roleType;
+    }
 }
