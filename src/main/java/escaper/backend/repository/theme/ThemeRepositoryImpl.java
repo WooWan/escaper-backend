@@ -40,7 +40,7 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
     @Override
     public List<Theme> findPopularTheme() {
         return queryFactory.selectFrom(theme)
-                .orderBy(theme.rate.desc())
+                .orderBy(theme.rating.desc())
                 .limit(10)
                 .fetch();
     }
@@ -62,9 +62,9 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
 
     @Override
     public ThemeDetailDto findThemeCafeById(Long id) {
-        return queryFactory.select(new QThemeDetailDto(theme.id, theme.name, theme.genre, theme.timeLimitation, theme.appropriatedPeople, theme.rate, theme.cost, theme.imageURL, cafe.name))
+        return queryFactory.select(new QThemeDetailDto(theme.id, theme.name, theme.genre, theme.description, theme.timeLimitation, theme.appropriatedPeople, theme.rating, theme.cost, theme.imageURL, cafe.id,cafe.phoneNumber, cafe.name))
                 .from(theme)
-                .join(theme.cafe, cafe)
+                .leftJoin(theme.cafe, cafe)
                 .where(theme.id.eq(id))
                 .fetchOne();
     }
