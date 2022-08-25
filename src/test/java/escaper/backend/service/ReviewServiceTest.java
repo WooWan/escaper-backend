@@ -7,6 +7,7 @@ import escaper.backend.entity.theme.Theme;
 import escaper.backend.repository.cafe.CafeRepository;
 import escaper.backend.repository.review.ReviewRepository;
 import escaper.backend.repository.theme.ThemeRepository;
+import escaper.backend.service.review.ReviewService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
