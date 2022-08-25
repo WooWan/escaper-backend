@@ -9,8 +9,4 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
 class BackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
 }

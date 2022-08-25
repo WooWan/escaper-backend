@@ -55,21 +55,21 @@ class ReviewServiceTest extends ServiceTestConfig {
         cafeRepository.deleteAll();
     }
 
-    @Test
-    @DisplayName("유저가 평점을 등록한다")
-    void rateTheme() {
-        Long themeId = theme1.getId();
-
-        Long memberId = member1.getUserSeq();
-
-        CreateRating createRating = new CreateRating(3.0);
-        reviewService.rateTheme(themeId, memberId, createRating);
-
-        assertThat(theme1.getRating()).isEqualTo(3.0);
-
-        CreateRating createRating2 = new CreateRating(4.0);
-        reviewService.rateTheme(themeId, memberId, createRating2);
-
-        assertThat(theme1.getRating()).isEqualTo(3.5);
-    }
+//    @Test
+//    @DisplayName("유저가 평점을 등록한다")
+//    void rateTheme() {
+//        Long themeId = theme1.getId();
+//
+//        Long memberId = member1.getUserSeq();
+//
+//        CreateRating createRating = new CreateRating(3.0);
+//        reviewService.rateTheme(themeId, memberId, createRating);
+//
+//        assertThat(theme1.getRating()).isEqualTo(3.0);
+//
+//        CreateRating createRating2 = new CreateRating(4.0);
+//        reviewService.rateTheme(themeId, memberId, createRating2);
+//
+//        assertThat(theme1.getRating()).isEqualTo(3.5);
+//    }
 }
