@@ -1,0 +1,78 @@
+name: CICD
+
+on:
+  push:
+    branches: [main]
+
+env:
+  #Postgresql
+  POSTGRESQL_VERSION: 13.7
+  POSTGRESQL_DB: amigoscode
+  POSTGRESQL_USER: postgres
+  POSTGRESQL_PASSWORD: password
+  #Dokcerhub
+  DOCKERHUB_USERNAME: woohobi
+  DOCKERHUB_REPOSITORY: woohobi/escaper
+  # AWS & Elastic Bean Stalk
+  AWS_REGION: ap-northeast-2
+  EB_ENVIRONMENT_NAME: Escaper-env
+  EB_APPLICATION_NAME: escaper
+  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+
+    steps:
+      - uses: actions/chekcout@v3
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Build Number
+        id: build-number
+        run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
+
+      - name:
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Execute Gradle build
+        run: ./gradlew clean build
+
+      - name: JIB container build and publish
+        uses: MathieuSoysal/jib-container-publish.yml@v2.1.3
+        with:
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to Docker hub
+        uses: MathieuSoysal/jib-container-publish.yml@v2.1.3
+        with:
+          REGISTRY: docker.io
+          # github.repository as <your-account>/<your-repo>
+          IMAGE_NAME: ${{ env.DOCKERHUB_REPOSITORY }}
+          # Tag name of the image to publish
+          tag-name: ${{steps.build-number.outputs.BUILD_NUMBER}}
+
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          environment_name: ${{ env.EB_ENVIRONMENT_NAME }}
+          application_name: ${{ env.EB_APPLICATION_NAME }}
+          deployment_package: ${{ env.EB_DEPLOYMENT_PACKAGE }}
+          version_label: ${{steps.build-number.outputs.BUILD_NUMBER}}
+
+
+
