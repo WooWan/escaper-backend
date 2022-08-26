@@ -10,8 +10,8 @@ env:
   DOCKERHUB_REPOSITORY: woohobi/escaper
   # AWS & Elastic Bean Stalk
   AWS_REGION: ap-northeast-2
-  EB_ENVIRONMENT_NAME: Escaper-env
-  EB_APPLICATION_NAME: escaper
+  EB_ENVIRONMENT_NAME: Escaperings-env
+  EB_APPLICATION_NAME: escaperings
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
 
 jobs:
