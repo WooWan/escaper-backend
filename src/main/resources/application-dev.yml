@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://awseb-e-3pjvycjfe3-stack-awsebrdsdatabase-0bemblk2jlbm.chg3dsn71mku.ap-northeast-2.rds.amazonaws.com/postgres
+    url: jdbc:postgresql://awseb-e-jei942ry68-stack-awsebrdsdatabase-98ye2nxqohlf.chg3dsn71mku.ap-northeast-2.rds.amazonaws.com:5432/postgres
     username: woohobi
-    password: password!
+    password: password
   jpa:
     hibernate:
       ddl-auto: create-drop
