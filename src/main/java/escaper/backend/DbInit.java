@@ -101,46 +101,15 @@ public class DbInit {
 
             Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3));
             post1.addTheme(theme1);
-            post1.addTheme(theme2);
 
-            Post post2 = createPost("post2", "test2", member1, LocalDate.of(2022, 6, 3));
-            Post post3 = createPost("post3", "test3", member2,LocalDate.of(2022,6,3));
-            Post post4 = createPost("post4", "test4", member2, LocalDate.of(2022,6,3));
-            Post post5 = createPost("post2", "test2", member1,LocalDate.of(2022,6,3));
-            Post post6 = createPost("post3", "test3", member2,LocalDate.of(2022,6,3));
-            Post post7 = createPost("post4", "test4", member2, LocalDate.of(2022, 6, 3));
-            Post post8 = createPost("post2", "test2", member1,LocalDate.of(2022,6,3));
-            Post post9 = createPost("post3", "test3", member2,LocalDate.of(2022,6,3));
-            Post post10 = createPost("post4", "test4", member2, LocalDate.of(2022,6,3));
-            Post post11 = createPost("post2", "test2", member1,LocalDate.of(2022,6,3));
 
             em.persist(post1);
-            em.persist(post2);
-            em.persist(post3);
-            em.persist(post4);
-//            em.persist(post5);
-//            em.persist(post6);
-//            em.persist(post7);
-//            em.persist(post8);
-//            em.persist(post9);
-//            em.persist(post10);
-//            em.persist(post11);
-//
+
             em.flush();
             em.clear();
         }
 
         public void dbInit2() {
-            Address address = new Address("서울", "홍대");
-            Address address2 = new Address("경기도", "수원");
-            Address address3 = new Address("서울", "강남");
-            Cafe cafe = new Cafe("키이스케이프", "010-1234-1234" ,address);
-            Cafe cafe2 = new Cafe("소우주","010-1234-1234", address2);
-            Cafe cafe3 = new Cafe("코드케이","010-1234-1234", address3);
-
-            em.persist(cafe);
-            em.persist(cafe2);
-            em.persist(cafe3);
             Theme theme = createTheme();
             Theme theme2 = createTheme();
             Theme theme3 = createTheme();
