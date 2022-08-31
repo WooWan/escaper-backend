@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class CreatePostRequest {
     private String title;
     private String content;
     private Integer participation;
-    private LocalDate appointmentDate;
+    private LocalDate date;
     private Integer views;
     private Theme theme;
 
@@ -27,7 +26,7 @@ public class CreatePostRequest {
                 .title(title)
                 .content(content)
                 .participation(participation)
-                .appointmentDate(appointmentDate)
+                .appointmentDate(date)
                 .views(views)
                 .build();
     }
