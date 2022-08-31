@@ -1,9 +1,8 @@
 package escaper.backend.controller;
 
 import escaper.backend.dto.post.CreatePostRequest;
-import escaper.backend.entity.*;
 import escaper.backend.entity.post.Post;
-import escaper.backend.entity.post.PostDto;
+import escaper.backend.entity.post.PostResponse;
 import escaper.backend.repository.post.PostRepository;
 import escaper.backend.service.post.PostService;
 import lombok.Getter;
@@ -26,22 +25,20 @@ public class PostController {
 
     @GetMapping("/api/posts")
     @ResponseStatus(HttpStatus.OK)
-    private Page<PostDto> getPosts(Pageable pageable) {
+    private Page<PostResponse> getPosts(Pageable pageable) {
         Page<Post> posts= postRepository.findPagePost(pageable);
         log.info("posts {}", posts);
-        return posts.map(PostDto::new);
+        return posts.map(PostResponse::new);
     }
 
     @GetMapping("/api/post/{id}")
-    private PostResponseDto fetchPost(@PathVariable Long id) {
-        Post findPost = postRepository.fetchPost(id);
-        log.info("findpost {} ", findPost);
-        return new PostResponseDto(findPost);
+    private PostResponse fetchPost(@PathVariable Long id) {
+        return postService.fetchPost(id);
     }
 
     @PostMapping("/api/post")
-    public void savePost(@RequestBody CreatePostRequest postRequest) {
-        postService.savePost(postRequest);
+    public Long savePost(@RequestBody CreatePostRequest postRequest) {
+        return postService.savePost(postRequest);
     }
 
     @DeleteMapping("/api/post/{id}")
