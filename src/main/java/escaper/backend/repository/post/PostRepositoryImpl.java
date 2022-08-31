@@ -25,7 +25,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return queryFactory.selectFrom(post)
                 .where(post.id.eq(id))
                 .leftJoin(post.comments, comment).fetchJoin()
-                .join(post.theme, theme).fetchJoin()
+                .leftJoin(post.theme, theme).fetchJoin()
                 .fetchOne();
     }
 
@@ -33,6 +33,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     public Page<Post> findPagePost(Pageable pageable) {
         List<Post> results = queryFactory
                 .selectFrom(post)
+                .orderBy(post.createDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
