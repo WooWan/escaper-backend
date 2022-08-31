@@ -3,16 +3,13 @@ package escaper.backend.service.post;
 import escaper.backend.dto.post.CreatePostRequest;
 import escaper.backend.entity.post.Post;
 import escaper.backend.entity.UpdatePostRequestDto;
-import escaper.backend.entity.theme.Theme;
-import escaper.backend.error.exception.ThemeException;
+import escaper.backend.entity.post.PostResponse;
 import escaper.backend.repository.post.PostRepository;
-import escaper.backend.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,7 +17,6 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final ThemeRepository themeRepository;
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
@@ -44,4 +40,8 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    public PostResponse fetchPost(Long id) {
+        Post post = postRepository.fetchPost(id);
+        return PostConverter.toPostResponse(post);
+    }
 }
