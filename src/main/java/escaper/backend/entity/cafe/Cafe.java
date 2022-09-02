@@ -1,6 +1,7 @@
 package escaper.backend.entity.cafe;
 
 import escaper.backend.entity.theme.Theme;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,10 +29,12 @@ public class Cafe {
     @Embedded
     private Address address;
 
-    public Cafe(String name,String phoneNumber, Address address) {
+    @Builder
+    public Cafe(String name,String phoneNumber, Address address, Double rating) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.rating = rating;
     }
 
     public Cafe(String name) {
