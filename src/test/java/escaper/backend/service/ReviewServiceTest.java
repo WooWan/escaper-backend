@@ -43,7 +43,6 @@ class ReviewServiceTest extends ServiceTestConfig {
                 .rating(0.0)
                 .genre("스릴러")
                 .timeLimitation(60)
-                .appropriatedPeople(3)
                 .cost(22000)
                 .imageURL("www.com")
                 .build());
