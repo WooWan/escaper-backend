@@ -38,11 +38,6 @@ public class ThemeController {
         return themeRepository.findThemeCafeById(id);
     }
 
-//    @GetMapping("/api/themes")
-//    public List<ThemeSearchDto> searchTheme(@RequestParam(required = false) String cafe) {
-//        return themeRepository.searchTheme(cafe);
-//    }
-
     @GetMapping("/api/themes/popular")
     public List<ThemeDto> findPopularTheme() {
         List<Theme> results = themeRepository.findPopularTheme();
