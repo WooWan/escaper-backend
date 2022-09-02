@@ -30,7 +30,6 @@ public class PostResponseDto {
         this.comments = post.getComments().stream()
                 .map(CommentDto::new)
                 .collect(toList());
-
     }
 
 }
