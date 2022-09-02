@@ -36,7 +36,6 @@ public class Theme {
     @Column(length = 1000)
     private String description;
     private Integer timeLimitation;
-    private Integer appropriatedPeople;
     private Double rating;
     private Integer cost;
     private String imageURL;
@@ -50,14 +49,13 @@ public class Theme {
     }
 
     @Builder
-    public Theme(String name, Cafe cafe, String genre, String description, Integer timeLimitation, Integer appropriatedPeople
+    public Theme(String name, Cafe cafe, String genre, String description, Integer timeLimitation
             , Double rating, Integer cost, String imageURL) {
         this.name = name;
         this.cafe = cafe;
         this.genre = genre;
         this.description = description;
         this.timeLimitation = timeLimitation;
-        this.appropriatedPeople = appropriatedPeople;
         this.rating = rating;
         this.cost = cost;
         this.imageURL = imageURL;
