@@ -1,6 +1,7 @@
 package escaper.backend.service;
 
 import escaper.backend.dto.theme.ThemeTypes;
+import escaper.backend.entity.theme.ThemeSearchDto;
 import escaper.backend.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,9 @@ public class ThemeService {
         return result.stream()
                 .filter(theme -> nameSet.add(theme.getGenre()))
                 .collect(Collectors.toList());
+    }
+
+    public List<ThemeSearchDto> searchCafe(String cafe) {
+        return themeRepository.searchTheme(cafe);
     }
 }

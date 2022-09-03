@@ -19,21 +19,6 @@ public class CafeController {
 
     private final CafeRepository cafeRepository;
 
-    @GetMapping("/api/cities")
-    public List<String> getCity() {
-        return cafeRepository.searchCities();
-    }
-
-    @GetMapping("/api/areas")
-    public List<String> searchArea(@RequestParam(required = false) String city) {
-        return cafeRepository.searchArea(city);
-    }
-
-    @GetMapping("/api/cafes/search")
-    public List<CafeSearchDto> searchCafe(@RequestParam(required = false) String area) {
-        return cafeRepository.searchCafe(area);
-    }
-
     @GetMapping("/api/cafes")
     public List<CafeDto> getCafes() {
         return cafeRepository.findAll().stream()
