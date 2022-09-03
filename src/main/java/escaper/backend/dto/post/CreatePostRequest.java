@@ -19,7 +19,7 @@ public class CreatePostRequest {
     private Integer participation;
     private LocalDate date;
     private Integer views;
-    private Theme theme;
+    private String themeName;
 
     public Post toEntity() {
         return Post.builder()
@@ -27,7 +27,7 @@ public class CreatePostRequest {
                 .content(content)
                 .participation(participation)
                 .appointmentDate(date)
-                .views(views)
+                .views(0)
                 .build();
     }
 }
