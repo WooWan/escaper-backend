@@ -1,4 +1,4 @@
-package escaper.backend.config;
+package escaper.backend.config.security;
 
 import escaper.backend.oauth.token.AuthTokenProvider;
 import org.springframework.beans.factory.annotation.Value;

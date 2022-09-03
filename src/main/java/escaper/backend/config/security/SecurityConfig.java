@@ -1,5 +1,7 @@
-package escaper.backend.config;
+package escaper.backend.config.security;
 
+import escaper.backend.config.AppProperties;
+import escaper.backend.config.CorsProperties;
 import escaper.backend.controller.MemberController;
 import escaper.backend.oauth.entity.RoleType;
 import escaper.backend.oauth.exception.RestAuthenticationEntryPoint;
