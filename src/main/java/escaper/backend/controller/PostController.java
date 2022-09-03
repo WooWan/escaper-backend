@@ -24,11 +24,8 @@ public class PostController {
     private final PostRepository postRepository;
 
     @GetMapping("/api/posts")
-    @ResponseStatus(HttpStatus.OK)
     private Page<PostResponse> getPosts(Pageable pageable) {
-        Page<Post> posts= postRepository.findPagePost(pageable);
-        log.info("posts {}", posts);
-        return posts.map(PostResponse::new);
+        return postService.getPostsPaging(pageable);
     }
 
     @GetMapping("/api/post/{id}")

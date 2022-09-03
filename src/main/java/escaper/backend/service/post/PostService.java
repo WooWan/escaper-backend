@@ -4,12 +4,14 @@ import escaper.backend.dto.post.CreatePostRequest;
 import escaper.backend.entity.post.Post;
 import escaper.backend.entity.UpdatePostRequestDto;
 import escaper.backend.entity.post.PostResponse;
+import escaper.backend.entity.theme.Theme;
 import escaper.backend.repository.post.PostRepository;
+import escaper.backend.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -17,15 +19,19 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
+    private final ThemeRepository themeRepository;
 
     @Transactional
     public Long savePost(CreatePostRequest request) {
+        Theme findTheme = themeRepository.findByName(request.getThemeName());
         Post newPost = PostConverter.toPost(request);
+        newPost.addTheme(findTheme);
         return postRepository.save(newPost).getId();
+    }
+
+    public Page<PostResponse> getPostsPaging(Pageable pageable) {
+        Page<Post> posts = postRepository.findPagePost(pageable);
+        return posts.map(PostResponse::new);
     }
 
 
