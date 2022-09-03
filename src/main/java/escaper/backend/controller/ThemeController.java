@@ -2,7 +2,7 @@ package escaper.backend.controller;
 
 import escaper.backend.dto.theme.ThemeDetailDto;
 import escaper.backend.entity.theme.Theme;
-import escaper.backend.dto.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeResponse;
 import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.repository.theme.ThemeRepository;
 import escaper.backend.service.ThemeService;
@@ -26,10 +26,10 @@ public class ThemeController {
 
 
     @GetMapping("/api/themes")
-    public List<ThemeDto> fetchThemes() {
+    public List<ThemeResponse> fetchThemes() {
         List<Theme> results = themeRepository.findAll();
         return results.stream()
-                .map(ThemeDto::new)
+                .map(ThemeResponse::new)
                 .collect(toList());
     }
 
@@ -39,18 +39,18 @@ public class ThemeController {
     }
 
     @GetMapping("/api/themes/popular")
-    public List<ThemeDto> findPopularTheme() {
+    public List<ThemeResponse> findPopularTheme() {
         List<Theme> results = themeRepository.findPopularTheme();
         return results.stream()
-                .map(ThemeDto::new)
+                .map(ThemeResponse::new)
                 .collect(toList());
     }
 
     @GetMapping("/api/themes/{genre}")
-    public List<ThemeDto> findThemeByGenre(@PathVariable String genre) {
+    public List<ThemeResponse> findThemeByGenre(@PathVariable String genre) {
         List<Theme> results = themeRepository.findThemeByGenre(genre);
         return results.stream()
-                .map(ThemeDto::new)
+                .map(ThemeResponse::new)
                 .collect(toList());
     }
 
