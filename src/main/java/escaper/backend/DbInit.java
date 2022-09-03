@@ -44,64 +44,6 @@ public class DbInit {
         private final PostService postService;
 
         public void dbInit() {
-
-//            Member member1 = new Member("user1", "username", "1234", ProviderType.GOOGLE, RoleType.USER);
-//            Member member2 = new Member("user1", "username", "1234", ProviderType.GOOGLE, RoleType.USER);
-//            em.persist(member1);
-////            em.persist(user2);
-//            Cafe cafe = new Cafe("키이스케이프", "010-1234-1234", new Address("서울", "성수"));
-//            em.persist(cafe);
-//
-//            String description = " Production grade React applications that scale. The world's leading\n" +
-//                    "          companies use Next.js by Vercel to build static and dynamic websites\n" +
-//                    "          and web applications Welcome to the Next.js documentation! If you're\n" +
-//                    "          new to Next.js, we recommend starting with the learn course. The\n" +
-//                    "          interactive course with quizzes will guide you through everything you\n" +
-//                    "          need to know to use Next.js. If you have questions about anything\n" +
-//                    "          related to Next.js, you're always welcome to ask our community on\n" +
-//                    "          GitHub Discussions.";
-//
-//            Theme theme1 = Theme.builder()
-//                    .cafe(cafe)
-//                    .name("꼬레아우라")
-//                    .description(description)
-//                    .rating(0.0)
-//                    .genre("스릴러")
-//                    .timeLimitation(60)
-//                    .cost(22000)
-//                    .imageURL("www.com")
-//                    .build();
-//            Theme theme2 = Theme.builder()
-//                    .cafe(cafe)
-//                    .name("꼬레아우라")
-//                    .description(description)
-//                    .rating(0.0)
-//                    .genre("스릴러")
-//                    .timeLimitation(60)
-//                    .cost(22000)
-//                    .imageURL("www.com")
-//                    .build();
-//            Theme theme3 = Theme.builder()
-//                    .cafe(cafe)
-//                    .name("꼬레아우라")
-//                    .description(description)
-//                    .rating(0.0)
-//                    .genre("스릴러")
-//                    .timeLimitation(60)
-//                    .cost(22000)
-//                    .imageURL("www.com")
-//                    .build();
-//            em.persist(theme1);
-//            em.persist(theme2);
-//            em.persist(theme3);
-//
-//
-//            Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3));
-//            post1.addTheme(theme1);
-//
-//
-//            em.persist(post1);
-//
 //            em.flush();
 //            em.clear();
         }
@@ -142,7 +84,10 @@ public class DbInit {
                     "이승에서 떠나지 못한 영혼들을 추적하여\n" +
                     "찾아내는 자들이다.\n" +
                     "이번 영혼에게는 어떠한 사연이 있는 것일까?", "야외", 90, 17000, "https://escapertest.s3.ap-northeast-2.amazonaws.com/theme__%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC_%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_SOUL+CHASER+-+%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC.jpeg");
-
+            Member member1 = new Member("user1", "username", "1234", ProviderType.GOOGLE, RoleType.USER);
+            Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3));
+            post1.addTheme(theme);
+            em.persist(post1);
         }
 
         public Theme createTheme(Cafe cafe, String name, String description, String genre, Integer timeLimitation, Integer cost, String url) {
