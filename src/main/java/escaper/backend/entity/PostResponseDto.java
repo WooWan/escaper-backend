@@ -2,7 +2,7 @@ package escaper.backend.entity;
 
 import escaper.backend.entity.comment.CommentDto;
 import escaper.backend.entity.post.Post;
-import escaper.backend.dto.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeResponse;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +20,13 @@ public class PostResponseDto {
     private String title;
     private String content;
     private List<CommentDto> comments;
-    private ThemeDto themeDto;
+    private ThemeResponse themeResponse;
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.themeDto = new ThemeDto(post.getTheme());
+        this.themeResponse = new ThemeResponse(post.getTheme());
         this.comments = post.getComments().stream()
                 .map(CommentDto::new)
                 .collect(toList());

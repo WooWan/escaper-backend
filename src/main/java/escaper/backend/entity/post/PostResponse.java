@@ -1,6 +1,6 @@
 package escaper.backend.entity.post;
 
-import escaper.backend.dto.theme.ThemeDto;
+import escaper.backend.dto.theme.ThemeResponse;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +15,8 @@ public class PostResponse {
     private LocalDate appointmentDate;
     private Integer views;
     private Integer participation;
-    private ThemeDto themeDto;
+    private ThemeResponse themeResponse;
+
 
     @Builder
     public PostResponse(Post post) {
@@ -25,5 +26,6 @@ public class PostResponse {
         this.appointmentDate = post.getAppointmentDate();
         this.views = post.getViews();
         this.participation = post.getParticipation();
+        this.themeResponse = new ThemeResponse(post.getTheme());
     }
 }

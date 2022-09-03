@@ -4,7 +4,7 @@ import escaper.backend.entity.theme.Theme;
 import lombok.Data;
 
 @Data
-public class ThemeDto {
+public class ThemeResponse {
 
     private Long themeId;
     private String cafeName;
@@ -13,7 +13,7 @@ public class ThemeDto {
     private Double rating;
     private String imageURL;
 
-    public ThemeDto(Theme theme) {
+    public ThemeResponse(Theme theme) {
         this.themeId = theme.getId();
         this.cafeName = theme.getCafe().getName();
         this.name = theme.getName();
