@@ -1,6 +1,7 @@
 package escaper.backend.oauth.entity;
 
 import escaper.backend.entity.member.Member;
+import escaper.backend.oauth.info.OAuth2UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     private final String userId;
-//    private final String password;
     private final ProviderType providerType;
     private final RoleType roleType;
     private final Collection<GrantedAuthority> authorities;
@@ -89,18 +89,39 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
         return null;
     }
 
+    public ProviderType getProviderType(){
+        return providerType;
+    }
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
     public static UserPrincipal create(Member member) {
         return new UserPrincipal(
                 member.getUserId(),
-//                user.getPassword(),
                 member.getProviderType(),
                 RoleType.USER,
                 Collections.singletonList(new SimpleGrantedAuthority(RoleType.USER.getCode()))
         );
     }
 
-    public static UserPrincipal create(Member member, Map<String, Object> attributes) {
-        UserPrincipal userPrincipal = create(member);
+    public static UserPrincipal create(OAuth2UserInfo userInfo, ProviderType providerType) {
+        return new UserPrincipal(
+                userInfo.getId(),
+                providerType,
+                RoleType.USER,
+                Collections.singletonList(new SimpleGrantedAuthority(RoleType.USER.getCode()))
+        );
+    }
+
+//    public static UserPrincipal create(Member member, Map<String, Object> attributes) {
+//        UserPrincipal userPrincipal = create(member);
+//        userPrincipal.setAttributes(attributes);
+//
+//        return userPrincipal;
+//    }
+    public static UserPrincipal create(OAuth2UserInfo userInfo, ProviderType providerType, Map<String, Object> attributes) {
+        UserPrincipal userPrincipal = create(userInfo, providerType);
         userPrincipal.setAttributes(attributes);
 
         return userPrincipal;
