@@ -1,16 +1,20 @@
 package escaper.backend.oauth.handler;
 
 import escaper.backend.config.AppProperties;
-import escaper.backend.controller.MemberController;
+import escaper.backend.entity.member.Member;
+import escaper.backend.entity.member.TemporaryMember;
 import escaper.backend.entity.member.UserRefreshToken;
 import escaper.backend.oauth.entity.ProviderType;
 import escaper.backend.oauth.entity.RoleType;
+import escaper.backend.oauth.entity.UserPrincipal;
 import escaper.backend.oauth.info.OAuth2UserInfo;
 import escaper.backend.oauth.info.OAuth2UserInfoFactory;
 import escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import escaper.backend.oauth.token.AuthToken;
 import escaper.backend.oauth.token.AuthTokenProvider;
+import escaper.backend.repository.user.TemporaryMemberRepository;
 import escaper.backend.repository.user.UserRefreshTokenRepository;
+import escaper.backend.service.member.MemberService;
 import escaper.backend.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -29,10 +33,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
-import static escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
-import static escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REFRESH_TOKEN;
+import static escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.*;
 
 @Component
 @RequiredArgsConstructor
@@ -42,19 +46,42 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final AppProperties appProperties;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-    private final MemberController memberController;
+    private final MemberService memberService;
+    private final TemporaryMemberRepository temporaryMemberRepository;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String targetUrl = determineTargetUrl(request, response, authentication);
+        UserPrincipal oAuth2User = (UserPrincipal) authentication.getPrincipal();
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+        String email = (String)attributes.get("email");
+        ProviderType providerType = oAuth2User.getProviderType();
+        RoleType roleType = oAuth2User.getRoleType();
+        String userId = oAuth2User.getUserId();
+        Optional<Member> result = memberService.getUserByEmail(email);
+        String redirectUrl = determineTargetUrl(request, response, authentication);
 
-        if (response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+        if(result.isEmpty()){
+            TemporaryMember temporaryMember = new TemporaryMember(email, userId, providerType, roleType, redirectUrl);
+            if (result.isEmpty()) {
+                temporaryMemberRepository.save(temporaryMember);
+            }
+
+            String param = "?email=" + email;
+            Optional<String> redirectHost = CookieUtil.getCookie(request, REDIRECT_URI_SIGNUP)
+                    .map(Cookie::getValue);
+            String targetUrl = redirectHost.orElseThrow(() -> new IllegalArgumentException("유효하지 않은 주소입니다")) + param;
+
+            getRedirectStrategy().sendRedirect(request, response, targetUrl);
             return;
         }
-//        memberController.getUser();
+
+        if (response.isCommitted()) {
+            logger.debug("Response has already been committed. Unable to redirect to " + redirectUrl);
+            return;
+        }
         clearAuthenticationAttributes(request, response);
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

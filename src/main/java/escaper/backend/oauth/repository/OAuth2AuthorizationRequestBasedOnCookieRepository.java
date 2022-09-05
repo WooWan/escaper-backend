@@ -2,17 +2,22 @@ package escaper.backend.oauth.repository;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import escaper.backend.util.CookieUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class OAuth2AuthorizationRequestBasedOnCookieRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
     public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
     public final static String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
     public final static String REFRESH_TOKEN = "refresh_token";
+    public final static String REDIRECT_URI_SIGNUP = "signup";
+    public final static String REDIRECT_HOST = "redirect_host";
     private final static int cookieExpireSeconds = 180;
 
     @Override
@@ -32,9 +37,16 @@ public class OAuth2AuthorizationRequestBasedOnCookieRepository implements Author
         }
 
         CookieUtil.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.serialize(authorizationRequest), cookieExpireSeconds);
+        CookieUtil.addCookie(response, REDIRECT_HOST, request.getHeader(HttpHeaders.HOST), cookieExpireSeconds);
+
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
+        String signupUrl = request.getParameter(REDIRECT_URI_SIGNUP);
+
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
             CookieUtil.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, cookieExpireSeconds);
+        }
+        if (StringUtils.isNotBlank(signupUrl)) {
+            CookieUtil.addCookie(response, REDIRECT_URI_SIGNUP, signupUrl, cookieExpireSeconds);
         }
     }
 
