@@ -4,7 +4,6 @@ import escaper.backend.entity.member.Member;
 import escaper.backend.oauth.entity.ProviderType;
 import escaper.backend.oauth.entity.RoleType;
 import escaper.backend.oauth.entity.UserPrincipal;
-import escaper.backend.oauth.exception.OAuthProviderMissMatchException;
 import escaper.backend.oauth.info.OAuth2UserInfo;
 import escaper.backend.oauth.info.OAuth2UserInfoFactory;
 import escaper.backend.repository.user.MemberRepository;
@@ -41,21 +40,21 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-        Member savedMember = memberRepository.findByUserId(userInfo.getId());
+//        Member savedMember = memberRepository.findByUserId(userInfo.getId());
+//
+//        if (savedMember != null) {
+//            if (providerType != savedMember.getProviderType()) {
+//                throw new OAuthProviderMissMatchException(
+//                        "Looks like you're signed up with " + providerType +
+//                                " account. Please use your " + savedMember.getProviderType() + " account to login."
+//                );
+//            }
+//            updateUser(savedMember, userInfo);
+//        } else {
+//            savedMember = createUser(userInfo, providerType);
+//        }
 
-        if (savedMember != null) {
-            if (providerType != savedMember.getProviderType()) {
-                throw new OAuthProviderMissMatchException(
-                        "Looks like you're signed up with " + providerType +
-                                " account. Please use your " + savedMember.getProviderType() + " account to login."
-                );
-            }
-            updateUser(savedMember, userInfo);
-        } else {
-            savedMember = createUser(userInfo, providerType);
-        }
-
-        return UserPrincipal.create(savedMember, user.getAttributes());
+        return UserPrincipal.create(userInfo,providerType, user.getAttributes());
     }
 
     private Member createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
@@ -63,6 +62,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 userInfo.getId(),
                 userInfo.getName(),
                 userInfo.getImageUrl(),
+                userInfo.getEmail(),
                 providerType,
                 RoleType.USER
         );

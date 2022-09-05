@@ -2,7 +2,6 @@ package escaper.backend.config.security;
 
 import escaper.backend.config.AppProperties;
 import escaper.backend.config.CorsProperties;
-import escaper.backend.controller.MemberController;
 import escaper.backend.oauth.entity.RoleType;
 import escaper.backend.oauth.exception.RestAuthenticationEntryPoint;
 import escaper.backend.oauth.filter.TokenAuthenticationFilter;
@@ -13,7 +12,9 @@ import escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieR
 import escaper.backend.oauth.service.CustomOAuth2UserService;
 import escaper.backend.oauth.service.CustomUserDetailsService;
 import escaper.backend.oauth.token.AuthTokenProvider;
+import escaper.backend.repository.user.TemporaryMemberRepository;
 import escaper.backend.repository.user.UserRefreshTokenRepository;
+import escaper.backend.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomOAuth2UserService oAuth2UserService;
     private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
-    private final MemberController memberController;
+    private final MemberService memberService;
+    private final TemporaryMemberRepository temporaryMemberRepository;
 
     /*
      * UserDetailsService 설정
@@ -135,7 +137,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 appProperties,
                 userRefreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
-                memberController
+                memberService,
+                temporaryMemberRepository
         );
     }
 
