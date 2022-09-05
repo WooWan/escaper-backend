@@ -1,15 +1,17 @@
 package escaper.backend.controller;
 
 import escaper.backend.common.ApiRespon;
-import escaper.backend.dto.MemberResponse;
+import escaper.backend.dto.member.MemberResponse;
+import escaper.backend.dto.member.MemberSaveRequest;
+import escaper.backend.dto.member.MemberSignUpResponse;
 import escaper.backend.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -19,9 +21,15 @@ public class MemberController {
 
     @GetMapping("/member")
     public ApiRespon<MemberResponse> getUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        MemberResponse memberResponse = memberService.getUser(name);
+        User principal =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+
+        MemberResponse memberResponse = memberService.getUser(username);
         return new ApiRespon<>(memberResponse);
+    }
+
+    @PostMapping("/signUp")
+    public MemberSignUpResponse signup(@RequestBody MemberSaveRequest memberSaveRequest) {
+        return memberService.signUpMember(memberSaveRequest);
     }
 }
