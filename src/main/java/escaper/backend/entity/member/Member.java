@@ -48,20 +48,24 @@ public class Member {
     @NotNull
     private RoleType roleType;
 
+    private String email;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
-
+    @Builder
     public Member(
             @NotNull @Size(max = 64) String userId,
             @NotNull @Size(max = 100) String username,
             @NotNull @Size(max = 512) String profileImageUrl,
+            String email,
             @NotNull ProviderType providerType,
             @NotNull RoleType roleType
     ) {
         this.userId = userId;
         this.username = username;
         this.profileImageUrl = profileImageUrl != null ? profileImageUrl : "";
+        this.email = email;
         this.providerType = providerType;
         this.roleType = roleType;
     }
