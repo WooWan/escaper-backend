@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     //member
-    NOT_FOUND_MEMBER("M001", "Not found member", HttpStatus.BAD_REQUEST);
+    NOT_FOUND_MEMBER("M001", "Not found member", HttpStatus.BAD_REQUEST),
+    INVALID_SIGNUP("M005", "Signup time is over", HttpStatus.BAD_REQUEST);
 
     private final String code;
     private final String message;
