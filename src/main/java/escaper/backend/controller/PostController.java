@@ -3,7 +3,6 @@ package escaper.backend.controller;
 import escaper.backend.dto.post.CreatePostDto;
 import escaper.backend.dto.post.PostRequest;
 import escaper.backend.entity.post.PostResponse;
-import escaper.backend.oauth.entity.UserPrincipal;
 import escaper.backend.repository.post.PostRepository;
 import escaper.backend.service.post.PostConverter;
 import escaper.backend.service.post.PostService;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +36,7 @@ public class PostController {
     }
 
     @PostMapping("/api/post")
-    public Long savePost(Authentication authentication, @AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody PostRequest postRequest) {
+    public Long savePost(Authentication authentication, @RequestBody PostRequest postRequest) {
         User principal =(User) authentication.getPrincipal();
         String username = principal.getUsername();
         CreatePostDto createPostDto = PostConverter.toPostCreateDto(username, postRequest);
