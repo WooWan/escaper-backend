@@ -1,8 +1,9 @@
 package escaper.backend.entity;
 
-import escaper.backend.entity.comment.CommentDto;
+import escaper.backend.entity.comment.CommentResponse;
 import escaper.backend.entity.post.Post;
 import escaper.backend.dto.theme.ThemeResponse;
+import escaper.backend.service.comment.CommentConverter;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class PostResponseDto {
     private Long id;
     private String title;
     private String content;
-    private List<CommentDto> comments;
+    private List<CommentResponse> comments;
     private ThemeResponse themeResponse;
 
     public PostResponseDto(Post post) {
@@ -28,7 +29,7 @@ public class PostResponseDto {
         this.content = post.getContent();
         this.themeResponse = new ThemeResponse(post.getTheme());
         this.comments = post.getComments().stream()
-                .map(CommentDto::new)
+                .map(CommentConverter::toCommentResponse)
                 .collect(toList());
     }
 
