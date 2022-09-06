@@ -40,7 +40,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-//        Member savedMember = memberRepository.findByUserId(userInfo.getId());
+        Member savedMember = memberRepository.findByUserId(userInfo.getId());
+        if (savedMember != null) {
+            updateUser(savedMember, userInfo);
+        }
 //
 //        if (savedMember != null) {
 //            if (providerType != savedMember.getProviderType()) {
@@ -54,7 +57,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //            savedMember = createUser(userInfo, providerType);
 //        }
 
-        return UserPrincipal.create(userInfo,providerType, user.getAttributes());
+        return UserPrincipal.create(userInfo, providerType, user.getAttributes());
     }
 
     private Member createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
