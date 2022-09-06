@@ -26,10 +26,6 @@ public class MemberService {
         return MemberConverter.toMemberResponse(findMember);
     }
 
-    public Optional<Member> getUserByEmail(String email) {
-        return memberRepository.findMemberByEmail(email);
-    }
-
     public MemberSignUpResponse signUpMember(MemberSaveRequest memberSaveRequest) {
         String email = memberSaveRequest.getEmail();
         Optional<TemporaryMember> result = temporaryMemberRepository.findTemporaryMemberByEmail(email);

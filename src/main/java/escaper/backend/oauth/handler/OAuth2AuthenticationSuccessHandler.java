@@ -12,9 +12,9 @@ import escaper.backend.oauth.info.OAuth2UserInfoFactory;
 import escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import escaper.backend.oauth.token.AuthToken;
 import escaper.backend.oauth.token.AuthTokenProvider;
+import escaper.backend.repository.user.MemberRepository;
 import escaper.backend.repository.user.TemporaryMemberRepository;
 import escaper.backend.repository.user.UserRefreshTokenRepository;
-import escaper.backend.service.member.MemberService;
 import escaper.backend.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -46,26 +46,25 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final AppProperties appProperties;
     private final UserRefreshTokenRepository userRefreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final TemporaryMemberRepository temporaryMemberRepository;
 
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         UserPrincipal oAuth2User = (UserPrincipal) authentication.getPrincipal();
+        String username = oAuth2User.getUserId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String)attributes.get("email");
         ProviderType providerType = oAuth2User.getProviderType();
         RoleType roleType = oAuth2User.getRoleType();
         String userId = oAuth2User.getUserId();
-        Optional<Member> result = memberService.getUserByEmail(email);
+        Optional<Member> result = memberRepository.findMemberByUserId(username);
         String redirectUrl = determineTargetUrl(request, response, authentication);
 
         if(result.isEmpty()){
             TemporaryMember temporaryMember = new TemporaryMember(email, userId, providerType, roleType, redirectUrl);
-            if (result.isEmpty()) {
-                temporaryMemberRepository.save(temporaryMember);
-            }
+            temporaryMemberRepository.save(temporaryMember);
 
             String param = "?email=" + email;
             Optional<String> redirectHost = CookieUtil.getCookie(request, REDIRECT_URI_SIGNUP)
