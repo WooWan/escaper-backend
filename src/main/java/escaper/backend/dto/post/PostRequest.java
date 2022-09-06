@@ -1,7 +1,6 @@
 package escaper.backend.dto.post;
 
 import escaper.backend.entity.post.Post;
-import escaper.backend.entity.theme.Theme;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CreatePostRequest {
+public class PostRequest {
 
     private String title;
     private String content;

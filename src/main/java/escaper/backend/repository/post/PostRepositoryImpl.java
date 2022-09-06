@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import static escaper.backend.entity.comment.QComment.comment;
+import static escaper.backend.entity.member.QMember.member;
 import static escaper.backend.entity.post.QPost.post;
 import static escaper.backend.entity.theme.QTheme.theme;
 
@@ -24,6 +25,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     public Post fetchPost(Long id) {
         return queryFactory.selectFrom(post)
                 .where(post.id.eq(id))
+                .leftJoin(post.member, member).fetchJoin()
                 .leftJoin(post.comments, comment).fetchJoin()
                 .leftJoin(post.theme, theme).fetchJoin()
                 .fetchOne();

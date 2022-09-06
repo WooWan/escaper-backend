@@ -14,15 +14,6 @@ public class MemberResponse {
     private ProviderType providerType;
     private RoleType roleType;
 
-//    @Builder
-//    public MemberResponse(Long id, String username, String profileImageUrl, ProviderType providerType, RoleType roleType) {
-//        this.id = id;
-//        this.username = username;
-//        this.profileImageUrl = profileImageUrl;
-//        this.providerType = providerType;
-//        this.roleType = roleType;
-//    }
-
     @Builder
     public MemberResponse(Long id, String username, String profileImageUrl, ProviderType providerType, RoleType roleType) {
         this.id = id;
