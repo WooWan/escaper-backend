@@ -14,3 +14,19 @@ logging:
       hibernate:
         SQL: DEBUG
 
+jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
+# cors 설정
+cors:
+  allowedOrigins: https://escapering.vercel.app, http://localhost:3000
+  allowedMethods: GET,POST,PUT,DELETE,OPTIONS
+  allowedHeaders: '*'
+  maxAge: 3600
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpiry: 1800000
+    refreshTokenExpiry: 604800000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth/redirect
