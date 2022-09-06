@@ -1,6 +1,5 @@
 package escaper.backend;
 
-import escaper.backend.dto.post.CreatePostRequest;
 import escaper.backend.entity.cafe.Address;
 import escaper.backend.entity.cafe.Cafe;
 import escaper.backend.entity.post.Post;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.util.List;
 
 import static escaper.backend.entity.post.Post.createPost;
 
@@ -85,6 +83,7 @@ public class DbInit {
                     "찾아내는 자들이다.\n" +
                     "이번 영혼에게는 어떠한 사연이 있는 것일까?", "야외", 90, 17000, "https://escapertest.s3.ap-northeast-2.amazonaws.com/theme__%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC_%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_SOUL+CHASER+-+%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC.jpeg");
             Member member1 = new Member("user1", "username", "1234", "woohobi", ProviderType.GOOGLE, RoleType.USER);
+            em.persist(member1);
             Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3));
             post1.addTheme(theme);
             em.persist(post1);
