@@ -19,6 +19,9 @@ jib {
 		image = "woohobi/escaper"
 		tags = ["latest"]
 	}
+	container {
+		jvmFlags = ['-Dspring.profiles.active=dev']
+	}
 }
 
 group = 'escaper'
