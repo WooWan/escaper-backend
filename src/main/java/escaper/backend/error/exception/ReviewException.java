@@ -10,7 +10,7 @@ public class ReviewException extends BusinessException{
         super(errorCode, message);
     }
 
-    public static MemberException notFoundReview(Long memberId, Long themeId) {
-        return new MemberException(ErrorCode.NOT_FOUND_MEMBER, MessageFormat.format("해당하는 리뷰가 존재하지 않습니다.. (memberId:{0}), (themeId:{1})", memberId, themeId));
+    public static ReviewException notFoundReview(Long memberId, Long themeId) {
+        return new ReviewException(ErrorCode.NOT_FOUND_MEMBER, MessageFormat.format("해당하는 리뷰가 존재하지 않습니다.. (memberId:{0}), (themeId:{1})", memberId, themeId));
     }
 }
