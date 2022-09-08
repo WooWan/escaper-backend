@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static escaper.backend.entity.comment.QComment.comment;
+import static escaper.backend.entity.post.QPost.post;
 
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepositoryCustom{
@@ -16,6 +17,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
     @Override
     public List<Comment> getCommentsByPost(Long id) {
         return queryFactory.selectFrom(comment)
+                .join(comment.post, post).fetchJoin()
                 .where(comment.post.id.eq(id))
                 .fetch();
     }

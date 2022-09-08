@@ -36,4 +36,9 @@ public class CommentController {
         return commentService.saveComment(postId, createCommentDto);
     }
 
+    @PutMapping("/api/comment")
+    public void updateComment(@RequestParam Long commentId, @RequestParam Long postId, @RequestBody CommentRequest commentRequest) {
+        commentService.updateComment(commentId, postId, commentRequest);
+    }
+
 }

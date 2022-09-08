@@ -15,6 +15,7 @@ public class CommentResponse {
     private Long id;
     private String content;
     private LocalDateTime createdDate;
+    private Long postId;
 
     @Builder
     public CommentResponse(Comment comment) {
@@ -22,5 +23,6 @@ public class CommentResponse {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.createdDate = comment.getCreateDate();
+        this.postId = comment.getPost().getId();
     }
 }

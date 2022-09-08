@@ -1,10 +1,12 @@
 package escaper.backend.service.comment;
 
+import escaper.backend.dto.comment.CommentRequest;
 import escaper.backend.dto.comment.CreateCommentRequest;
 import escaper.backend.entity.comment.Comment;
 import escaper.backend.entity.comment.CommentResponse;
 import escaper.backend.entity.member.Member;
 import escaper.backend.entity.post.Post;
+import escaper.backend.error.exception.CommentException;
 import escaper.backend.repository.comment.CommentRepository;
 import escaper.backend.repository.post.PostRepository;
 import escaper.backend.repository.user.MemberRepository;
@@ -47,5 +49,12 @@ public class CommentService {
                 .stream()
                 .map(CommentConverter::toCommentResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateComment(Long commentId, Long postId, CommentRequest commentRequest) {
+        Comment findComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> CommentException.notFoundComment(commentId));
+        findComment.updateComment(commentRequest.getContent());
     }
 }
