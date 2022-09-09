@@ -1,4 +1,15 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-url: http://escapers.tk/login/oauth2/code/google
+            client-id: 189878761535-tgl02cvim8hj7vefv7aubfjr8reh2qnf.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
   datasource:
     url: jdbc:postgresql://awseb-e-x2petxqumc-stack-awsebrdsdatabase-jzucbzcbawub.chg3dsn71mku.ap-northeast-2.rds.amazonaws.com/postgres
     username: woohobi

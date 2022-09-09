@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: local
     group:
       dev:
         dev, oauth
@@ -17,7 +17,7 @@ logging:
 jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
 # cors 설정
 cors:
-  allowedOrigins: https://escapering.vercel.app, http://localhost:3000
+  allowedOrigins: https://escapering.vercel.app, http://localhost:3000, https://escaper-front-49284v8t2-woowan.vercel.app/
   allowedMethods: GET,POST,PUT,DELETE,OPTIONS
   allowedHeaders: '*'
   maxAge: 3600
@@ -30,3 +30,4 @@ app:
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth/redirect
+      - https://escapering.vercel.app
