@@ -2,6 +2,7 @@ package escaper.backend.controller;
 
 import escaper.backend.dto.post.CreatePostDto;
 import escaper.backend.dto.post.PostRequest;
+import escaper.backend.dto.post.PostUpdateRequest;
 import escaper.backend.entity.post.PostResponse;
 import escaper.backend.repository.post.PostRepository;
 import escaper.backend.service.post.PostConverter;
@@ -42,6 +43,11 @@ public class PostController {
         CreatePostDto createPostDto = PostConverter.toPostCreateDto(username, postRequest);
 
         return postService.savePost(createPostDto);
+    }
+
+    @PutMapping("/api/post")
+    public void updatePost(@RequestBody PostUpdateRequest postUpdateRequest, @RequestParam Long postId) {
+        postService.updatePost(postUpdateRequest, postId);
     }
 
     @DeleteMapping("/api/post/{id}")

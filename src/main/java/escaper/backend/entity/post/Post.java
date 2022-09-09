@@ -1,5 +1,6 @@
 package escaper.backend.entity.post;
 
+import escaper.backend.dto.post.PostUpdateRequest;
 import escaper.backend.entity.BaseTimeEntity;
 import escaper.backend.entity.member.Member;
 import escaper.backend.entity.UpdatePostRequestDto;
@@ -77,9 +78,12 @@ public class Post extends BaseTimeEntity {
         this.member = member;
     }
 
-    public void updatePost(UpdatePostRequestDto request) {
+    public void updatePost(PostUpdateRequest request, Theme theme) {
         this.title = request.getTitle();
         this.content = request.getContent();
+        this.appointmentDate = request.getAppointmentDate();
+        this.participation = request.getParticipation();
+        this.theme = theme;
     }
 
     @Builder
