@@ -1,4 +1,4 @@
-package escaper.backend.service;
+package escaper.backend.service.cafe;
 
 import escaper.backend.entity.cafe.CafeSearchDto;
 import escaper.backend.repository.cafe.CafeRepository;
