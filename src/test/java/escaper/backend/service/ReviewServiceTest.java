@@ -1,7 +1,6 @@
 package escaper.backend.service;
 
 import escaper.backend.config.ServiceTestConfig;
-import escaper.backend.dto.review.CreateRating;
 import escaper.backend.entity.cafe.Cafe;
 import escaper.backend.entity.theme.Theme;
 import escaper.backend.repository.cafe.CafeRepository;
@@ -10,12 +9,8 @@ import escaper.backend.repository.theme.ThemeRepository;
 import escaper.backend.service.review.ReviewService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 class ReviewServiceTest extends ServiceTestConfig {
