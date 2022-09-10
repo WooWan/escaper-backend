@@ -1,11 +1,12 @@
 package escaper.backend.dto.post;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostUpdateRequest {
 
     private String title;
@@ -13,10 +14,4 @@ public class PostUpdateRequest {
     private Integer participation;
     private LocalDate appointmentDate;
     private String themeName;
-
-    @Builder
-    public PostUpdateRequest(){
-
-    }
-
 }

@@ -22,7 +22,6 @@ public class PostResponse {
     private Integer participation;
     private ThemeResponse themeResponse;
 
-
     @Builder
     public PostResponse(Post post) {
         this.memberResponse = MemberConverter.toMemberResponse(post.getMember());

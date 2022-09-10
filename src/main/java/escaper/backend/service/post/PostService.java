@@ -1,11 +1,9 @@
 package escaper.backend.service.post;
 
 import escaper.backend.dto.post.CreatePostDto;
-import escaper.backend.dto.post.PostRequest;
 import escaper.backend.dto.post.PostUpdateRequest;
 import escaper.backend.entity.member.Member;
 import escaper.backend.entity.post.Post;
-import escaper.backend.entity.UpdatePostRequestDto;
 import escaper.backend.entity.post.PostResponse;
 import escaper.backend.entity.theme.Theme;
 import escaper.backend.error.exception.MemberException;
