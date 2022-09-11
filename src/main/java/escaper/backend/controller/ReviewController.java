@@ -2,8 +2,8 @@ package escaper.backend.controller;
 
 import escaper.backend.dto.review.CreateRating;
 import escaper.backend.dto.review.RatingResponse;
+import escaper.backend.dto.review.ReviewResponse;
 import escaper.backend.entity.review.CreateReview;
-import escaper.backend.entity.review.Review;
 import escaper.backend.entity.review.ReviewDto;
 import escaper.backend.repository.review.ReviewRepository;
 import escaper.backend.service.review.ReviewService;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
-import static java.util.stream.Collectors.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,11 +30,8 @@ public class ReviewController {
     }
 
     @GetMapping("/api/review/{themeId}")
-    public List<ReviewDto> getReviews(@PathVariable Long themeId) {
-        List<Review> result = reviewRepository.findByThemeWithCon(themeId);
-        return result.stream()
-                .map(ReviewDto::new)
-                .collect(toList());
+    public ReviewResponse<List<ReviewDto>> getReviews(@PathVariable Long themeId) {
+        return reviewService.getReviews(themeId);
     }
 
     @GetMapping("/api/theme/{themeId}/member/{memberId}")

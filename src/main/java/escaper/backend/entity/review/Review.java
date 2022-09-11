@@ -48,4 +48,9 @@ public class Review {
     public void rateTheme(Double rating) {
         this.rating = rating;
     }
+
+    public void updateReview(String content) {
+        this.content = content;
+    }
+
 }

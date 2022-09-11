@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class RatingResponse {
-    private Double userRating;
+    private Double memberRating;
 
     @Builder
-    public RatingResponse(Double userRating) {
-        this.userRating = userRating;
+    public RatingResponse(Double memberRating) {
+        this.memberRating = memberRating;
     }
 }
