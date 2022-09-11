@@ -14,7 +14,7 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
-
+jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
 logging:
   level:
     org:
@@ -23,3 +23,20 @@ logging:
         type:
           descriptor:
             BasicBinder: trace
+
+
+cors:
+  allowedOrigins: http://localhost:3000
+  allowedMethods: GET,POST,PUT,DELETE,OPTIONS
+  allowedHeaders: '*'
+  maxAge: 3600
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpiry: 1800000
+    refreshTokenExpiry: 604800000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth/redirect
+      - https://escapering.vercel.app
