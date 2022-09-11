@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewConverter {
 
-    public static RatingResponse toRatingResponse( Double memberRating) {
+    public static RatingResponse toRatingResponse(Double memberRating) {
         return RatingResponse.builder()
                 .memberRating(memberRating)
                 .build();
