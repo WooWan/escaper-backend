@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryCustom {
 
     @Query("select r from Review r join fetch r.member where r.theme.id =:themeId and r.content is not null")
     List<Review> findReviewByThemeId(@Param("themeId") Long themeId);
