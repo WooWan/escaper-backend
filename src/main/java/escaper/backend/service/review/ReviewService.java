@@ -65,19 +65,26 @@ public class ReviewService {
         Optional<Review> result = reviewRepository.findReviewByUser(memberId, themeId);
 
         //유저가 해당 테마에 리뷰가 있을 경우,
+        Long id;
         if (result.isPresent()) {
             Review findReview = result.get();
             findReview.rateTheme(rating);
-            return reviewRepository.save(findReview).getId();
+             id = reviewRepository.save(findReview).getId();
         }else{
             Review review = new Review();
             review.rateTheme(rating);
             updateReview(findTheme, findMember, review);
-            return reviewRepository.save(review).getId();
+             id= reviewRepository.save(review).getId();
         }
+        Double avgRating = reviewRepository.calculateThemeRatingAverage(findTheme.getId());
+        findTheme.updateRating(avgRating);
+        return id;
     }
 
-    public ReviewResponse<List<ReviewDto>> getReviews( Long themeId) {
+    public ReviewResponse<List<ReviewDto>> getReviews(Long themeId) {
+        Double avgRating = themeRepository.findThemeById(themeId)
+                .getRating();
+
         List<Review> ratingResult = reviewRepository.getRatingOfTheme(themeId);
         List<Review> result = reviewRepository.findReviewByThemeId(themeId);
 
@@ -85,16 +92,7 @@ public class ReviewService {
                 .map(ReviewDto::new)
                 .collect(toList());
 
-        if (!ratingResult.isEmpty()) {
-            int size = ratingResult.size();
-            double sum = 0;
-            for(Review review: ratingResult){
-                sum+= review.getRating();
-            }
-            double average = sum /(double)size;
-            return new ReviewResponse<>(ratingResult.size(), average, collect);
-        }
-        return new ReviewResponse<>(0, 0, collect);
+        return new ReviewResponse<>(ratingResult.size(), avgRating, collect);
     }
 
 
