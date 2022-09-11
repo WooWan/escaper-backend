@@ -5,7 +5,7 @@ import escaper.backend.entity.theme.Theme;
 import escaper.backend.dto.theme.ThemeResponse;
 import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.repository.theme.ThemeRepository;
-import escaper.backend.service.ThemeService;
+import escaper.backend.service.theme.ThemeService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

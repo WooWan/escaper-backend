@@ -3,7 +3,7 @@ package escaper.backend.controller;
 import escaper.backend.entity.cafe.CafeSearchDto;
 import escaper.backend.entity.theme.ThemeSearchDto;
 import escaper.backend.service.cafe.CafeService;
-import escaper.backend.service.ThemeService;
+import escaper.backend.service.theme.ThemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
