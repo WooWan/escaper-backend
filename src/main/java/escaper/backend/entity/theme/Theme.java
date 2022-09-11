@@ -66,4 +66,8 @@ public class Theme {
         theme.setName(name);
         return theme;
     }
+
+    public void updateRating(Double rating) {
+        this.rating= rating;
+    }
 }

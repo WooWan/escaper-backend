@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static escaper.backend.entity.cafe.QCafe.cafe;
+import static escaper.backend.entity.review.QReview.*;
 import static escaper.backend.entity.theme.QTheme.theme;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -33,6 +34,8 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
     @Override
     public Theme findThemeById(Long id) {
         return queryFactory.selectFrom(theme)
+                .join(theme.cafe, cafe).fetchJoin()
+                .leftJoin(theme.reviews, review).fetchJoin()
                 .where(theme.id.eq(id))
                 .fetchOne();
     }
