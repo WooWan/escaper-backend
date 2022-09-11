@@ -1,4 +1,4 @@
-package escaper.backend.service;
+package escaper.backend.service.theme;
 
 import escaper.backend.dto.theme.ThemeTypes;
 import escaper.backend.entity.theme.ThemeSearchDto;
