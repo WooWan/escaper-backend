@@ -63,7 +63,7 @@ public class ThemeRepositoryImpl implements ThemeRepositoryCustom {
 
     @Override
     public ThemeDetailDto findThemeCafeById(Long id) {
-        return queryFactory.select(new QThemeDetailDto(theme.id, theme.name, theme.genre, theme.description, theme.timeLimitation, theme.rating, theme.cost, theme.imageURL, cafe.id,cafe.phoneNumber, cafe.name))
+        return queryFactory.select(new QThemeDetailDto(theme.id, theme.name, theme.genre, theme.description, theme.timeLimitation, theme.rating, theme.cost, theme.imageURL, cafe.id,cafe.phoneNumber, cafe.name, cafe.address))
                 .from(theme)
                 .leftJoin(theme.cafe, cafe)
                 .where(theme.id.eq(id))

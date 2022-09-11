@@ -66,10 +66,4 @@ public class Theme {
         theme.setName(name);
         return theme;
     }
-
-    public void updateRating(Double rating) {
-        int reviewCount = reviews.size();
-        Double previousRating = this.rating * reviewCount;
-        this.rating = (previousRating + rating) / (reviewCount+1);
-    }
 }
