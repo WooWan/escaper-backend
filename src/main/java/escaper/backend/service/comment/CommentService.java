@@ -52,9 +52,14 @@ public class CommentService {
     }
 
     @Transactional
-    public void updateComment(Long commentId, Long postId, CommentRequest commentRequest) {
+    public void updateComment(Long commentId, CommentRequest commentRequest) {
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> CommentException.notFoundComment(commentId));
         findComment.updateComment(commentRequest.getContent());
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 }

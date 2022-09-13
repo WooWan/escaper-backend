@@ -29,7 +29,7 @@ public class CommentController {
 
     @PostMapping("/api/comment")
     public Long saveComment(Authentication authentication, @RequestParam Long postId, @RequestBody CommentRequest commentRequest) {
-        User principal =(User) authentication.getPrincipal();
+        User principal = (User) authentication.getPrincipal();
         String username = principal.getUsername();
         CreateCommentRequest createCommentDto = CommentConverter.toCommentCreateRequest(username, commentRequest);
 
@@ -37,8 +37,12 @@ public class CommentController {
     }
 
     @PutMapping("/api/comment")
-    public void updateComment(@RequestParam Long commentId, @RequestParam Long postId, @RequestBody CommentRequest commentRequest) {
-        commentService.updateComment(commentId, postId, commentRequest);
+    public void updateComment(@RequestParam Long commentId, @RequestBody CommentRequest commentRequest) {
+        commentService.updateComment(commentId, commentRequest);
     }
 
+    @DeleteMapping("/api/comment")
+    public void deleteComment(@RequestParam Long commentId){
+        commentService.deleteComment(commentId);
+    }
 }
