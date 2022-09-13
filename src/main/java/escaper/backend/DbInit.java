@@ -53,8 +53,8 @@ public class DbInit {
             Cafe 키이스케이프 = createCafe("키이스케이프 홍대점", "010-7497-5517", new Address(서울, 홍대, "어울마당로 44-1", "보리수빌딩 지하 1층"));
             Theme theme = createTheme(키이스케이프, "삐릿-뽀", "삐릿삐리.. 삐삐..삐.. 삐리리리리리!\n" +
                     "삐리리리릿 삐리리 삐릿뽀리 삐릿-뽀!","미스터리",75 ,27000,"https://escapertest.s3.ap-northeast-2.amazonaws.com/%E1%84%88%E1%85%B5%E1%84%85%E1%85%B5%E1%86%BA%E1%84%88%E1%85%A9.jpeg" );
-            Theme theme2 = createTheme(키이스케이프, "홀리데이", "오늘은 홀리데이.", "일상", 60, 23000, "https://escapertest.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A9%E1%86%AF%E1%84%85%E1%85%B5%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5.jpeg");
-            Theme theme3 = createTheme(키이스케이프, "고백", "아직도 기억나. 널 처음봤던 순간.\n" +
+            Theme 홀리데이 = createTheme(키이스케이프, "홀리데이", "오늘은 홀리데이.", "일상", 60, 23000, "https://escapertest.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A9%E1%86%AF%E1%84%85%E1%85%B5%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5.jpeg");
+            Theme 고백 = createTheme(키이스케이프, "고백", "아직도 기억나. 널 처음봤던 순간.\n" +
                     "가만히 서 있는 뒷모습조차 너무나도 귀여웠어.\n" +
                     "한눈에 알아차렸지. 우린 너무나 잘 맞을 거라는 걸.\n" +
                     "제대로 시작도 못해보고 널 이렇게 떠나보낼 수는 없어.\n" +
@@ -84,9 +84,18 @@ public class DbInit {
                     "이번 영혼에게는 어떠한 사연이 있는 것일까?", "야외", 90, 17000, "https://escapertest.s3.ap-northeast-2.amazonaws.com/theme__%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC_%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_SOUL+CHASER+-+%E1%84%89%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A9%E1%86%BC.jpeg");
             Member member1 = new Member("user1", "username", "1234", "woohobi", ProviderType.GOOGLE, RoleType.USER);
             em.persist(member1);
-            Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3));
-            post1.addTheme(theme);
+            Post post1 = createPost("같이 홍대 방탈출 하러 갈 2명 구해요!!", "test", member1, LocalDate.of(2022,6,3), theme);
             em.persist(post1);
+            Post post2 = createPost("주말 삐릿뽀 1명 구함", "test2", member1, LocalDate.of(2022, 10, 22), 홀리데이);
+            Post post3 = createPost("평일 홍대에 시간 되시는분", "test2", member1, LocalDate.of(2022, 10, 22), 고백);
+            Post post4 = createPost("방탈출 극쫄이 탱 구해요", "test2", member1, LocalDate.of(2022, 10, 22), 이불밖);
+            Post post5 = createPost("양도 해주실 분 있나요?", "test2", member1, LocalDate.of(2022, 10, 22), 다시봄);
+            em.persist(post2);
+            em.persist(post3);
+            em.persist(post4);
+            em.persist(post5);
+
+
         }
 
         public Theme createTheme(Cafe cafe, String name, String description, String genre, Integer timeLimitation, Integer cost, String url) {
