@@ -11,6 +11,7 @@ import escaper.backend.entity.review.ReviewDto;
 import escaper.backend.entity.theme.Theme;
 import escaper.backend.error.exception.MemberException;
 import escaper.backend.error.exception.ThemeException;
+import escaper.backend.repository.cafe.CafeRepository;
 import escaper.backend.repository.review.ReviewRepository;
 import escaper.backend.repository.theme.ThemeRepository;
 import escaper.backend.repository.user.MemberRepository;
@@ -59,25 +60,40 @@ public class ReviewService {
                 .orElseThrow(() -> ThemeException.notFoundTheme(themeId));
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> MemberException.notFoundMember(memberId));
-
+        Cafe findCafe = findTheme.getCafe();
         Double rating = createRating.getRating();
         validateRating(rating);
         Optional<Review> result = reviewRepository.findReviewByUser(memberId, themeId);
 
         //유저가 해당 테마에 리뷰가 있을 경우,
+        Long reviewId = registerReview(findTheme, findMember, rating, result);
+
+        Double avgRating = reviewRepository.calculateThemeRatingAverage(findTheme.getId());
+        findTheme.updateRating(avgRating);
+
+        double cafeAvgRating = findCafe.getThemeList().stream()
+                .map(Theme::getRating)
+                .collect(toList())
+                .stream()
+                .mapToDouble(d -> d)
+                .average()
+                .orElse(0.0);
+        findCafe.updateRating(cafeAvgRating);
+        return reviewId;
+    }
+
+    private Long registerReview(Theme findTheme, Member findMember, Double rating, Optional<Review> result) {
         Long id;
         if (result.isPresent()) {
             Review findReview = result.get();
             findReview.rateTheme(rating);
-             id = reviewRepository.save(findReview).getId();
+            id = reviewRepository.save(findReview).getId();
         }else{
             Review review = new Review();
             review.rateTheme(rating);
             updateReview(findTheme, findMember, review);
-             id= reviewRepository.save(review).getId();
+            id = reviewRepository.save(review).getId();
         }
-        Double avgRating = reviewRepository.calculateThemeRatingAverage(findTheme.getId());
-        findTheme.updateRating(avgRating);
         return id;
     }
 
