@@ -65,8 +65,10 @@ public class Post extends BaseTimeEntity {
         this.content = content;
     }
 
-    public static Post createPost(String title, String content, Member member, LocalDate appointmentDate) {
-        return new Post(title, content, member, appointmentDate, 0, 1);
+    public static Post createPost(String title, String content, Member member, LocalDate appointmentDate, Theme theme) {
+        Post post = new Post(title, content, member, appointmentDate, 0, 1);
+        post.addTheme(theme);
+        return post;
     }
 
     public void addTheme(Theme theme) {
