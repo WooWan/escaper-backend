@@ -40,4 +40,9 @@ public class Cafe {
     public Cafe(String name) {
         this.name = name;
     }
+
+    public void updateRating(double rating) {
+        this.rating = rating;
+
+    }
 }
