@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +50,7 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post/{id}")
-    private ResponseEntity<Long> deletePost(@PathVariable Long id) {
+    private void deletePost(@PathVariable Long id) {
         postService.delete(id);
-        return ResponseEntity.ok(id);
     }
 }
