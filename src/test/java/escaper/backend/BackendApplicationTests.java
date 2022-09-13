@@ -5,8 +5,9 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+
+//@ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
 @SpringBootTest
-@ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
 class BackendApplicationTests {
 
 }
