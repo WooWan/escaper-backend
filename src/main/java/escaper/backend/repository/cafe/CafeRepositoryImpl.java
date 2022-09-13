@@ -37,8 +37,7 @@ public class CafeRepositoryImpl implements CafeRepositoryCustom{
     public Cafe findCafeById(Long id) {
         return queryFactory.selectFrom(cafe)
                 .where(cafe.id.eq(id))
-                .join(cafe.themeList, theme)
-                .fetchJoin()
+                .join(cafe.themeList, theme).fetchJoin()
                 .fetchOne();
     }
 

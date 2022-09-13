@@ -1,8 +1,8 @@
 package escaper.backend.controller;
 
 import escaper.backend.dto.cafe.CafeDto;
-import escaper.backend.entity.cafe.*;
 import escaper.backend.repository.cafe.CafeRepository;
+import escaper.backend.service.cafe.CafeService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class CafeController {
 
     private final CafeRepository cafeRepository;
+    private final CafeService cafeService;
 
     @GetMapping("/api/cafes")
     public List<CafeDto> getCafes() {
@@ -28,8 +29,7 @@ public class CafeController {
 
     @GetMapping("/api/cafe/{id}")
     public CafeDto getCafeById(@PathVariable Long id) {
-        Cafe findCafe = cafeRepository.findCafeById(id);
-        return new CafeDto(findCafe);
+       return cafeService.findCafeById(id);
     }
 
 }
