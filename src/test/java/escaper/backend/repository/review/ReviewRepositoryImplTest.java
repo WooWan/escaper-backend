@@ -30,8 +30,8 @@ class ReviewRepositoryImplTest {
     @Autowired
     private ThemeRepository themeRepository;
 
-    @Test
-    @DisplayName("평점 평균 계산")
+//    @Test
+//    @DisplayName("평점 평균 계산")
     public void calculateRatingAvg() {
         //given
         Theme theme = new Theme("theme");
