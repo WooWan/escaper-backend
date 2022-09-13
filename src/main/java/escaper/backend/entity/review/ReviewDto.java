@@ -12,6 +12,7 @@ public class ReviewDto {
     private String content;
     private Double rate;
     private Long themeId;
+    private String themeName;
     private Integer likes;
 
     public ReviewDto(Review review) {
@@ -21,5 +22,6 @@ public class ReviewDto {
         rate = review.getRating();
         likes = review.getLikes();
         themeId = review.getTheme().getId();
+        themeName = review.getTheme().getName();
     }
 }
