@@ -4,7 +4,6 @@ spring:
       client:
         registration:
           google:
-            redirect-url: http://escapers.tk/login/oauth2/code/google
             client-id: 189878761535-tgl02cvim8hj7vefv7aubfjr8reh2qnf.apps.googleusercontent.com
             client-secret: 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
             scope:
