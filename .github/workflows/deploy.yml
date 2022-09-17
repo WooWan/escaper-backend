@@ -54,7 +54,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Execute Gradle build
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: Build with jib
         run: |
