@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Map;
 import java.util.Optional;
 
 import static escaper.backend.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.*;
@@ -53,8 +52,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         UserPrincipal oAuth2User = (UserPrincipal) authentication.getPrincipal();
         String username = oAuth2User.getUserId();
-        Map<String, Object> attributes = oAuth2User.getAttributes();
-        String email = (String)attributes.get("email");
+
+        String email = oAuth2User.getEmail();
         ProviderType providerType = oAuth2User.getProviderType();
         RoleType roleType = oAuth2User.getRoleType();
         String userId = oAuth2User.getUserId();

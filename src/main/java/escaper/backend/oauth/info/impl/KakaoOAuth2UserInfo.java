@@ -2,6 +2,7 @@ package escaper.backend.oauth.info.impl;
 
 import escaper.backend.oauth.info.OAuth2UserInfo;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
@@ -28,7 +29,8 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getEmail() {
-        return (String) attributes.get("account_email");
+        HashMap attribute =(HashMap) attributes.get("kakao_account");
+        return (String) attribute.get("email");
     }
 
     @Override
