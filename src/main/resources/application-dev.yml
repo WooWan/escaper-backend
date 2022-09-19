@@ -9,6 +9,19 @@ spring:
             scope:
               - email
               - profile
+          kakao:
+            client-id: 7009e70b6407e1f57a45b3572e88fef8
+            client-secret: N7ylu2PWpjXDCf5MKw46Gk2w4z4Y1rdy
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
+            redirect-uri: https://escapers.tk/login/oauth2/code/kakao
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization_uri: https://kauth.kakao.com/oauth/authorize
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user_name_attribute: id
   datasource:
     url: jdbc:postgresql://awseb-e-x2petxqumc-stack-awsebrdsdatabase-jzucbzcbawub.chg3dsn71mku.ap-northeast-2.rds.amazonaws.com/postgres
     username: woohobi
