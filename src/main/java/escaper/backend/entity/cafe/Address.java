@@ -13,6 +13,12 @@ public class Address {
     private String streets;
     private String detail;
 
+    public Address(String city, String area, String streets) {
+        this.city = city;
+        this.area = area;
+        this.streets = streets;
+    }
+
 
     public Address(String city, String area, String streets, String detail) {
         this.city = city;

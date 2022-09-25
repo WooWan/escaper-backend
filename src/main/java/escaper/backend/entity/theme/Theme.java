@@ -38,6 +38,8 @@ public class Theme {
     private Integer timeLimitation;
     private Double rating;
     private Integer cost;
+
+    @Column(length = 500)
     private String imageURL;
 
     public void setName(String name) {
