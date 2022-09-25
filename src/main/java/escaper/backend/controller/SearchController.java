@@ -26,19 +26,17 @@ public class SearchController {
     }
 
     @GetMapping("/api/areas/search")
-    public List<String> searchArea(@RequestParam(required = false) String city) {
+    public List<String> searchArea(@RequestParam(required = false, defaultValue = "") String city) {
         return cafeService.searchArea(city);
     }
 
     @GetMapping("/api/cafes/search")
     public List<CafeSearchDto> searchCafe(@RequestParam(required = false, defaultValue = "") String area) {
-        log.info("cafe search");
         return cafeService.searchCafe(area);
     }
 
     @GetMapping("/api/themes/search")
     public List<ThemeSearchDto> searchThemes(@RequestParam(required = false, defaultValue = "") String cafe) {
-        log.info("cafe search");
         return themeService.searchCafe(cafe);
     }
 }
